@@ -1,0 +1,24 @@
+Index: .idea/deployment.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"PublishConfigData\">\r\n    <serverData>\r\n      <paths name=\"AthFTP\">\r\n        <serverdata>\r\n          <mappings>\r\n            <mapping local=\"$PROJECT_DIR$\" web=\"/\" />\r\n          </mappings>\r\n        </serverdata>\r\n      </paths>\r\n    </serverData>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/deployment.xml	(revision 5f72c1194adaf1d72f6f333248ef669211eafbe4)
++++ .idea/deployment.xml	(date 1601723496896)
+@@ -1,11 +1,11 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="PublishConfigData">
++  <component name="PublishConfigData" serverName="upem">
+     <serverData>
+-      <paths name="AthFTP">
++      <paths name="upem">
+         <serverdata>
+           <mappings>
+-            <mapping local="$PROJECT_DIR$" web="/" />
++            <mapping deploy="/WWW/Immersailles" local="$PROJECT_DIR$" web="~tvexiau/Immersailles" />
+           </mappings>
+         </serverdata>
+       </paths>
