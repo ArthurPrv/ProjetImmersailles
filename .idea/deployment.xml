@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData">
+  <component name="PublishConfigData" serverName="AthFTP" uploadOnCheckin="3b6e1114-5dae-40a9-a7fb-d5bda7917948">
     <serverData>
       <paths name="AthFTP">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/WWW/ProjetImmersailles" local="$PROJECT_DIR$" web="~tvexiau/ProjetImmersailles" />
           </mappings>
         </serverdata>
       </paths>
     </serverData>
+    <option name="myUploadOnCheckinName" value="AthFTP" />
   </component>
 </project>

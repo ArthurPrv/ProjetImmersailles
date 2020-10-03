@@ -28,10 +28,10 @@ h3 {
 
 /*** The timeline styles and structure ***/
 .tl-wrapper {
-    background: #e4f0f4;
+    background: black;
     min-height: 1px;
     position: static;
-    height: 699px!important;
+    height: 699px !important;
 }
 
 .timeline {
@@ -62,6 +62,7 @@ h3 {
     transition: 0.6s ease;
     -webkit-transform: translate3d(60%, 0, 0);
     transform: translate3d(60%, 0, 0);
+
 }
 .tl-item .tl-image {
     -webkit-transition: 0.6s ease;
@@ -105,7 +106,8 @@ h3 {
     right: 0;
     padding: 16px;
     padding: 1rem;
-    background: #289ecb;
+    background: black;
+.;
     color: #fff;
 }
 .tl-copy:after {
@@ -184,12 +186,9 @@ h3 {
     position: absolute;
     bottom: 13%;
     left: 0;
-    margin: 0;
-    padding: 16px 0 0 0;
     border-top: 1px solid #b2e9ff;
     overflow-x: hidden;
     width: 100%;
-    z-index: 10;
 }
 .tl-nav-wrapper:before, .tl-nav-wrapper:after {
     content: "";
