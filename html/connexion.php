@@ -15,14 +15,17 @@ include ("header.php");
     <form action="" method="post">
 
         <label for="Login">Login :</label> <br>
-        <input type="text" id="Login" name="Login"  required> <br><br>
+        <input type="text" id="Login" name="Login" required> <br><br>
 
         <label for="mdp">Mot de passe :</label><br>
-        <input type="password" id="mdp" name="mdp"  required> <br>
+        <input type="password" id="mdp" name="mdp" required> <br>
 
         <input type="reset" name="reset" value="Annulez">
         <input type="submit" name="submit" value="Envoyer">
+
+
     </form>
+    <a href="recup_mdp.php">Mot de passe oublié</a>
 
 
     <?php
