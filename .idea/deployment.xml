@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" uploadOnCheckin="c0782391-e501-4cd9-ba46-f06d44fe8246">
+  <component name="PublishConfigData" serverName="UPEM" uploadOnCheckin="c0782391-e501-4cd9-ba46-f06d44fe8246">
     <serverData>
-      <paths name="upem">
+      <paths name="UPEM">
         <serverdata>
           <mappings>
             <mapping deploy="/WWW/ProjetImmersailles" local="$PROJECT_DIR$" web="~tvexiau/ProjetImmersailles/" />
+            <mapping local="" />
           </mappings>
         </serverdata>
       </paths>
