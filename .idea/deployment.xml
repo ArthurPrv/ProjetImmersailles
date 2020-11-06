@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="UPEM" uploadOnCheckin="c0782391-e501-4cd9-ba46-f06d44fe8246">
+  <component name="PublishConfigData" serverName="UPEM">
     <serverData>
       <paths name="UPEM">
         <serverdata>
@@ -11,6 +11,5 @@
         </serverdata>
       </paths>
     </serverData>
-    <option name="myUploadOnCheckinName" value="upem" />
   </component>
 </project>

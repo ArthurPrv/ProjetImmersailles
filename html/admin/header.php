@@ -37,7 +37,7 @@ if (isset($_SESSION['Profil'])) {
 
 
                 <div class="m-lg-5 d-inline-block w-45  bg-dark text-white">
-                    <a href="#" class="btn text-white bg-dark w-45">Gestion des Markers</a>
+                    <a href="../insertionMarker.php" class="btn text-white bg-dark w-45">Gestion des Markers</a>
                 </div>
 
                 <div class="m-lg-5 d-inline-block w-45  bg-dark text-white">
