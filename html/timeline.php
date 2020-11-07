@@ -12,88 +12,79 @@
 <script src="../js/timeline.js" defer charset="UTF-8"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <div class="tl-wrapper bg-white" style="height: 699px">
+
     <ul class="timeline">
+
+
         <li class="tl-item" data-year="1981">
             <div id="map">
 
             </div>
-            <div class="tl-copy ">
-                <h3 class="title">Test 1</h3>
-                <div class="tl-description">
-                    <p>Test 2</p>
-                </div>
-            </div>
-            <map name="map1">
-                <div id="Layer2" style="position:absolute; left:195px; top:110px; width:64px; height:58px; z-index:2">
-                    <img usemap=#map1 src="../images/map_Marker.png" class="top-100">
-                    <div>
-                        <area shape="poly" coords="1,1,1,30,30,30,30,1" href="https://google.com">
-            </map>
-        </li>
-        <li class="tl-item" data-year="1982">
-            <div class="tl-image">
 
-                var map = L.map('map', {
-                crs: L.CRS.Simple
+            <script>
+
+                var versailleIcon = L.icon({
+                    iconUrl: '../images/marker.png',
                 });
 
 
-            </div>
+                var map = L.map('map', {
+                    crs: L.CRS.Simple,
+                    minZoom: -3
+                });
+
+                var yx = L.latLng;
+
+                var xy = function (x, y) {
+                    if (L.Util.isArray(x)) {    // When doing xy([x, y]);
+                        return yx(x[1], x[0]);
+                    }
+                    return yx(y, x);  // When doing xy(x, y);
+                };
+
+
+                var bounds = [xy(0, 0), xy(6507, 2319)];
+                var image = L.imageOverlay('../images/plan.png', bounds).addTo(map);
+
+                var sol = xy(175.2, 145.0);
+                var mizar = xy(41.6, 130.1);
+                var kruegerZ = xy(13.4, 56.5);
+                var deneb = xy(218.7, 8.3);
+
+                L.marker(sol, {icon: versailleIcon}).addTo(map).bindPopup('Sol');
+                L.marker(mizar, {icon: versailleIcon}).addTo(map).bindPopup('Mizar');
+                L.marker(kruegerZ, {icon: versailleIcon}).addTo(map).bindPopup('Krueger-Z');
+                L.marker(deneb, {icon: versailleIcon}).addTo(map).bindPopup('Deneb');
+
+                var travel = L.polyline([sol, deneb]).addTo(map);
+
+                map.setView(xy(6507 / 2, 2319), -1.80);
+
+
+            </script>
             <div class="tl-copy ">
                 <h3 class="title">Test 1</h3>
                 <div class="tl-description">
                     <p>Test 2</p>
                 </div>
             </div>
-            <map name="map1">
-                <div id="Layer2" style="position:absolute; left:195px; top:110px; width:64px; height:58px; z-index:2">
-                    <img usemap=#map1 src="../images/map_Marker.png" class="top-100">
-                    <div>
-                        <area shape="poly" coords="1,1,1,30,30,30,30,1" href="https://google.com">
-            </map>
+
         </li>
 
+
+        <li class="tl-item" data-year="1982">
+            <div id="map2">
+
+            </div>
+            <div class="tl-copy ">
+                <h3 class="title">Test 2</h3>
+                <div class="tl-description">
+                    <p>Test 3</p>
+                </div>
+            </div>
+
+        </li>
 
     </ul>
 </div>
 
-<script>
-
-    var versailleIcon = L.icon({
-        iconUrl: '../images/marker.png',
-    });
-
-
-    var map = L.map('map', {
-        crs: L.CRS.Simple,
-        minZoom: -3
-    });
-
-    var yx = L.latLng;
-
-    var xy = function (x, y) {
-        if (L.Util.isArray(x)) {    // When doing xy([x, y]);
-            return yx(x[1], x[0]);
-        }
-        return yx(y, x);  // When doing xy(x, y);
-    };
-
-
-    var bounds = [xy(0, 0), xy(6507, 2319)];
-    var image = L.imageOverlay('../images/plan.png', bounds).addTo(map);
-
-    var sol = xy(175.2, 145.0);
-    var mizar = xy(41.6, 130.1);
-    var kruegerZ = xy(13.4, 56.5);
-    var deneb = xy(218.7, 8.3);
-
-    L.marker(sol, {icon: versailleIcon}).addTo(map).bindPopup('Sol');
-    L.marker(mizar, {icon: versailleIcon}).addTo(map).bindPopup('Mizar');
-    L.marker(kruegerZ, {icon: versailleIcon}).addTo(map).bindPopup('Krueger-Z');
-    L.marker(deneb, {icon: versailleIcon}).addTo(map).bindPopup('Deneb');
-
-    var travel = L.polyline([sol, deneb]).addTo(map);
-
-    map.setView(xy(6507 / 2, 2319), -1.80);
-
-</script>
