@@ -19,12 +19,19 @@ $results = $db->query("SELECT ID_OH FROM OH;");
 
 echo "<label>OH: </label>";
 echo "<select name = 'OH' id=\"OH\">";
+$i = 0;
 while ($ligne = $results->fetch()) {
-    echo "<option value=\"" . $ligne['ID_OH'] . "\">" . $ligne['ID_OH'] . "</option>";
+
+    if ($i == 0) echo "<option selected=\"selected\" value=\"" . $ligne['ID_OH'] . "\">" . $ligne['ID_OH'] . "</option>";
+    else echo "<option value=\"" . $ligne['ID_OH'] . "\">" . $ligne['ID_OH'] . "</option>";
+    $i++;
 }
 $results->closeCursor();
 echo '</select><br><br>';
+
+
 ?>
+
 
 <script>
 

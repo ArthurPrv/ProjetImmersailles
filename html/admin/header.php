@@ -16,7 +16,7 @@ session_start();
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 
-    <link rel="stylesheet" type="text/css" href="../css/timeline.css">
+    <link rel="stylesheet" type="text/css" href="../../css/timeline.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"
             type="text/javascript"></script>
 

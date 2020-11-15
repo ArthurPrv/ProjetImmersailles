@@ -91,7 +91,6 @@ var navWidth = ($(".tl-nav li").outerWidth(true) * $(".tl-nav li").length) + 36;
 $(".tl-nav").width(navWidth);
 
 // The nav's arrows
-$(".tl-nav-wrapper").append("<a href='#' class='tl-nav-arrow-left'></a><a href='#' class='tl-nav-arrow-right'></a>");
 
 /*** The timeline's height ***/
 var vpHeight  = $(window).height();
