@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="../css/timeline.css">
-<link rel="stylesheet" href="../css/timeline_2.css">
+<link rel="stylesheet" href="../css/timeline/timeline.css">
+<link rel="stylesheet" href="../css/timeline/timeline_2.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://www.csslab.cl/ejemplos/timelinr/latest/js/jquery.timelinr-0.9.54.js"></script>
@@ -14,8 +14,8 @@
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
 
-<link rel="stylesheet" href="../leaflet/leaflet.css">
-<script src="../leaflet/leaflet.js"></script>
+<link rel="stylesheet" href="../css/leaflet/leaflet.css">
+<script src="../js/leaflet/leaflet.js"></script>
 <?php
 
 include("connexion_bdd.php");

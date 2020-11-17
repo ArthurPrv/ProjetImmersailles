@@ -13,11 +13,12 @@ if (isset($_SESSION['Profil'])) {
         <header>
             <div class=" w-100 text-white bg-dark ">
                 <h2 class="w-45  d-inline-block">
-                    <a href="Index.php"><img src="../images/logo_mini.png" class="w-auto"></a>Immersailles - Admin</h2>
+                    <a href="Index.php"><img src="../images/autre/logo_mini.png" class="w-auto" alt=""></a>Immersailles
+                    - Admin</h2>
 
 
                 <div class="m-lg-5 d-inline-block w-45  bg-dark text-white">
-                    <a href="#" class="btn text-white bg-dark w-45">Gestion des Markers</a>
+                    <a href="admin/editMarker.php" class="btn text-white bg-dark w-45">Gestion des Markers</a>
                 </div>
 
                 <div class="m-lg-5 d-inline-block w-45  bg-dark text-white">
@@ -31,8 +32,8 @@ if (isset($_SESSION['Profil'])) {
 
                 <h2 class="w-45 d-inline-block float-right">
                     <a href="Apropos.php" class="text-white font-weight-lighter">A propos</a>
-                    <img src="../images/logo_mini.png" class="w-auto">
-                    <a href="deconnexion.php"><img src="../images/logo_mini.png" class="w-auto"></a>
+                    <img src="../images/autre/logo_mini.png" class="w-auto" alt="">
+                    <a href="deconnexion.php"><img src="../images/autre/logo_mini.png" class="w-auto" alt=""></a>
                 </h2>
 
             </div>
@@ -47,12 +48,13 @@ if (isset($_SESSION['Profil'])) {
         <header>
             <div class="d-inline-block w-100 text-white bg-dark ">
                 <h2 class="w-45  d-inline-block">
-                    <a href="Index.php"><img src="../images/logo_mini.png" class="w-auto"></a>Immersailles -
+                    <a href="Index.php"><img src="../images/autre/logo_mini.png" class="w-auto" alt=""></a>Immersailles
+                    -
                     Contributeur</h2>
                 <h2 class="w-45 d-inline-block float-right">
                     <a href="Apropos.php" class="text-white font-weight-lighter">A propos</a>
-                    <img src="../images/logo_mini.png" class="w-auto">
-                    <a href="deconnexion.php"><img src="../images/logo_mini.png" class="w-auto"></a>
+                    <img src="../images/autre/logo_mini.png" class="w-auto" alt="">
+                    <a href="deconnexion.php"><img src="../images/autre/logo_mini.png" class="w-auto" alt=""></a>
                 </h2>
 
             </div>
@@ -65,12 +67,13 @@ else{
     <header>
         <div class="d-inline-block w-100 text-white bg-dark ">
             <h2 class="w-45  d-inline-block">
-                <a href="Index.php"><img src="../images/logo_mini.png" class="w-auto"></a>Immersailles </h2>
+                <a href="Index.php"><img src="../images/autre/logo_mini.png" class="w-auto" alt=""></a>Immersailles
+            </h2>
             <h2 class="w-45 d-inline-block float-right">
                 <a href="Apropos.php" class="text-white font-weight-lighter">A propos</a>
-                <img src="../images/logo_mini.png" class="w-auto">
+                <img src="../images/autre/logo_mini.png" class="w-auto" alt="">
                 <a href="connexion.php">
-                    <img src="../images/profil2.png" class="w-auto">
+                    <img src="../images/autre/profil.png" class="w-auto" alt="">
                 </a>
             </h2>
 
