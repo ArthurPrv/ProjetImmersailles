@@ -144,7 +144,7 @@ if ($ligne2['compte'] == 0) {
 
 
     </div>
-    <div id="Choix_OH" class="container d-inline-block">
+    <div id="Choix_OH" class="d-inline-block" STYLE="padding-left: 2%">
 
 
         <?php
@@ -166,8 +166,7 @@ if ($ligne2['compte'] == 0) {
 
         ?>
 
-    </div>
-    <div>
+
         <input id="EnvoyerMarker" value="Envoyer" type="button">
 
         <?php
