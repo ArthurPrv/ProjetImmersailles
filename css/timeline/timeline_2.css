@@ -54,7 +54,7 @@ h1 {
 }
 
 #dates {
-    width: 100px;
+    width: 50px;
     height: 600px;
     overflow: hidden;
     float: left;
@@ -62,7 +62,7 @@ h1 {
 
 #dates li {
     list-style: none;
-    width: 100px;
+    width: 50px;
     height: 75px;
     line-height: 75px;
     font-size: 24px;

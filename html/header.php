@@ -17,15 +17,15 @@ if (isset($_SESSION['Profil'])) {
                     - Admin</h2>
 
 
-                <div class="m-lg-5 d-inline-block w-45  bg-dark text-white">
+                <div class="pl-3 pr-3 d-inline-block w-45  bg-dark text-white">
                     <a href="admin/editMarker.php" class="btn text-white bg-dark w-45">Gestion des Markers</a>
                 </div>
 
-                <div class="m-lg-5 d-inline-block w-45  bg-dark text-white">
+                <div class="pl-3 pr-3 d-inline-block w-45  bg-dark text-white">
                     <a href="#" class="btn text-white bg-dark">Gestion des Cartes et Dates</a>
                 </div>
 
-                <div class="m-lg-5 d-inline-block w-45  bg-dark text-white">
+                <div class="pl-3 pr-3 d-inline-block w-45  bg-dark text-white">
                     <a href="admin/Gestion_user.php" class="btn text-white bg-dark">Gestion des Utilisateurs</a>
                 </div>
 

@@ -36,7 +36,7 @@ if ($ligne2['compte'] == 0) {
 <style>
     #map {
         width: 100%;
-        height: 100%;
+        height: 115%;
     }
 
     #dates {
@@ -55,7 +55,7 @@ if ($ligne2['compte'] == 0) {
 </form>
 
 
-<div class="d-inline-flex bottom-0 mb-auto h-50 d-inline-block pl-5 pr-5" id="marginTop" style="">
+<div class="d-inline-flex bottom-0 mb-auto h-50 d-inline-block pl-3 pr-5" id="marginTop" style="">
 
 
     <div id="timeline" class="input-flex-container d-inline-block">
@@ -235,7 +235,7 @@ if ($ligne2['compte'] == 0) {
 
     ?>
 
-    map.setView(xy(6507 / 2, 2319 / 2), -2.6);
+    map.setView(xy(6507 / 2, 2319 / 2), -2);
 
 </script>
 

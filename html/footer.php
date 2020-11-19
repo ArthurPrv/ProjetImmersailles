@@ -1,13 +1,7 @@
 <!-- Footer -->
-<style>
-    #footer {
-
-    }
 
 
-</style>
-
-<footer id="footer" class="page-footer font-small stylish-color-dark pt-4 bg-dark position-static m">
+<footer id="footer" class="page-footer font-small stylish-color-dark  bg-dark position-static m">
 
     <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left ">
@@ -20,10 +14,7 @@
 
                 <!-- Content -->
                 <h5 class="font-weight-bold text-uppercase mt-3 mb-4 text-warning">CREDITS</h5>
-                <p class="text-light">Here you can use rows and columns to organize your footer content. Lorem ipsum
-                    dolor sit amet,
-                    consectetur
-                    adipisicing elit.</p>
+                <p class="text-light">Here you can use rows and</p>
 
             </div>
             <!-- Grid column -->
@@ -40,9 +31,7 @@
                     <li>
                         <a href="#!">Link 1</a>
                     </li>
-                    <li>
-                        <a href="#!">Link 2</a>
-                    </li>
+
 
                 </ul>
 
@@ -61,9 +50,7 @@
                     <li>
                         <a href="#!">Link 1</a>
                     </li>
-                    <li>
-                        <a href="#!">Link 2</a>
-                    </li>
+
 
                 </ul>
 
@@ -82,9 +69,7 @@
                     <li>
                         <a href="#!">Link 1</a>
                     </li>
-                    <li>
-                        <a href="#!">Link 2</a>
-                    </li>
+
 
                 </ul>
 
@@ -100,7 +85,8 @@
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="https://mdbootstrap.com/"> PREVOST Arthur && VEXIAU Thomas</a>
+        <a href="https://www.linkedin.com/in/arthur-prevost-3241441a5/" target="_blank">PREVOST Arthur</a> &&
+        <a href="https://www.linkedin.com/in/thomas-vexiau-7252b41a6" target="_blank">VEXIAU Thomas</a>
     </div>
     <!-- Copyright -->
 
