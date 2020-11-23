@@ -2,15 +2,22 @@
 session_start();
 
 ?>
+<style>
+    #header {
+        border-left-width: 0px !important;
+        border-bottom-width: 1px !important;
+        border-top-width: 0px !important;
+        border-right-width: 0px !important;
 
-
+    }
+</style>
 <?php
 if (isset($_SESSION['Profil'])) {
     if ($_SESSION['Profil'] == 'Administrateur') {
 
 
         ?>
-        <header>
+        <header id="header" class="border border-warning">
             <div class=" w-100 text-white bg-dark ">
                 <h2 class="w-45  d-inline-block">
                     <a href="Index.php"><img src="../images/autre/logo_mini.png" class="w-auto" alt=""></a>Immersailles
@@ -45,7 +52,7 @@ if (isset($_SESSION['Profil'])) {
         <?php
     } else if ($_SESSION['Profil'] == 'Contributeur') {
         ?>
-        <header>
+        <header id="header" class="border border-warning">
             <div class="d-inline-block w-100 text-white bg-dark ">
                 <h2 class="w-45  d-inline-block">
                     <a href="Index.php"><img src="../images/autre/logo_mini.png" class="w-auto" alt=""></a>Immersailles
@@ -64,7 +71,7 @@ if (isset($_SESSION['Profil'])) {
 }
 else{
     ?>
-    <header>
+    <header id="header" class="border border-warning">
         <div class="d-inline-block w-100 text-white bg-dark ">
             <h2 class="w-45  d-inline-block">
                 <a href="Index.php"><img src="../images/autre/logo_mini.png" class="w-auto" alt=""></a>Immersailles

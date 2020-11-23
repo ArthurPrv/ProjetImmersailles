@@ -27,8 +27,8 @@ include("header.php");
 ?>
 <body>
 
-<div><h1>Administration</h1>
-    <form action="" method="post">
+<div style="text-align: center !important;"><h1>Connexion</h1>
+    <form class="align-content-center" action="" method="post">
 
         <label for="Login">Login :</label> <br>
         <input type="text" id="Login" name="Login" required> <br><br>

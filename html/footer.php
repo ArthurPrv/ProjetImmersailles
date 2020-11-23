@@ -1,7 +1,15 @@
 <!-- Footer -->
 
+<style>
+    #footer {
+        border-left-width: 0px !important;
+        border-bottom-width: 0px !important;
+        border-top-width: 1px !important;
+        border-right-width: 0px !important;
 
-<footer id="footer" class="page-footer font-small stylish-color-dark  bg-dark position-static m">
+    }
+</style>
+<footer id="footer" class="border border-warning page-footer font-small stylish-color-dark  bg-dark position-static m">
 
     <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left ">

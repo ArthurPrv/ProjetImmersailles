@@ -68,7 +68,7 @@ if ($ligne2['compte'] == 0) {
 <style>
     #map {
         width: 100%;
-        height: 115%;
+        height: 75%;
     }
 
     #dates {
@@ -97,21 +97,12 @@ if ($ligne2['compte'] == 0) {
 
 </style>
 <body>
-<form id="ID_Formulaire" action="" method="post">
-    <input type="hidden" ID="annee" name="annee">
-    <input type="hidden" ID="niveau" name="niveau">
-    <input type="hidden" ID="MarkerList" name="MarkerList" value="">
-    <input type="hidden" ID="MarkerListToDelete" name="MarkerListToDelete" value="">
-    <p>
-    <noscript><input type="submit" value="VALIDER" class="button"></noscript>
-    </p>
-</form>
 
 
-<div class="d-inline-flex bottom-0 mb-auto h-50 d-inline-block pl-3 pr-5" id="marginTop" style="">
+<div class="d-inline-flex bottom-0 mb-auto h-75 d-inline-block pl-3 " id="marginTop" style="">
 
 
-    <div id="timeline" class="input-flex-container  d-inline-block">
+    <div id="timeline" class="input-flex-container h-75 d-inline-block mt-3">
         <ul id="dates">
             <?php
             $results = $db->query("SELECT Niveaux FROM Carte_Nvx WHERE Annee='" . $annee . "';");
@@ -135,11 +126,11 @@ if ($ligne2['compte'] == 0) {
     </div>
 
 
-    <div class="flex-parent d-inline-block">
+    <div class="flex-parent d-inline-block  mt-3">
 
 
         <?php
-        $results = $db->query("SELECT Carte FROM Carte_Nvx WHERE Annee = " . $annee . " AND Niveaux = " . $niveau . ";");
+        $results = $db->query("SELECT Carte FROM Carte_Nvx WHERE Annee = " . $annee . " AND Niveaux = '" . $niveau . "';");
         while ($ligne = $results->fetch()) {
             $lien = '../' . $ligne['Carte'];
         }
@@ -175,28 +166,50 @@ if ($ligne2['compte'] == 0) {
 
 
     </div>
-    <div id="Choix_OH" class="ui-widget d-inline-block" STYLE="padding-left: 2%">
-        <style> #OH ul {
-                left: 0 !important;
-                right: 0 !important;
-                max-height: 320px;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }</style>
+
+
+    <style>
+        #OH ul {
+            left: 0 !important;
+            right: 0 !important;
+            max-height: 20%;
+            overflow-y: auto;
+            overflow-x: hidden;
+
+        }
+
+        #Choix_OH {
+            padding-left: 2%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-left-width: 5px !important;
+            border-bottom-width: 0px !important;
+            border-top-width: 0px !important;
+            border-right-width: 0px !important;
+
+
+        }
+
+    </style>
+
+
+    <div id="Choix_OH" class=" d-inline-block border border-warning pl-4 pr-2 ui-widget d-inline-block "
+         style="min-width: 370px; min-height: max-content">
+
 
         <?php
 
         $results = $db->query("SELECT ID_OH, Label_OH, Type_OH FROM OH ORDER BY Type_OH,Label_OH;");
 
-        echo "<label>OH: </label>";
+        echo "<label>OH:\n </label>";
         echo "<select name = 'OH' id=\"OH\">";
 
         echo "<option value>Select one...</option>";
         $i = 0;
         while ($ligne = $results->fetch()) {
 
-            if ($i == 0) echo "<option  selected=\"selected\"value=\"" . $ligne['ID_OH'] . "\">" . $ligne['Type_OH'] . " --> " . $ligne['Label_OH'] . "</option>";
-            else echo "<option value=\"" . $ligne['ID_OH'] . "\">" . $ligne['Type_OH'] . " --> " . $ligne['Label_OH'] . "</option>";
+            if ($i == 0) echo "<option  name='ggg' selected=\"selected\"value=\"" . $ligne['ID_OH'] . "\">" . $ligne['Type_OH'] . " --> " . $ligne['Label_OH'] . "</option>";
+            else echo "<option name='ggg' value=\"" . $ligne['ID_OH'] . "\">" . $ligne['Type_OH'] . " --> " . $ligne['Label_OH'] . "</option>";
 
             $i++;
         }
@@ -216,7 +229,7 @@ if ($ligne2['compte'] == 0) {
             $liste = explode("|||", $_POST['MarkerList']);
             for ($i = 1; $i < sizeof($liste); $i++) {
                 $liste2 = explode("||", $liste[$i]);
-                $results = $db->exec("INSERT INTO MARKER( x, y, ID_OH, Niveaux, Annee) VALUES (" . $liste2[1] . "," . $liste2[0] . "," . $liste2[2] . "," . $niveau . "," . $annee . ")");
+                $results = $db->exec("INSERT INTO MARKER( x, y, ID_OH, Niveaux, Annee) VALUES (" . $liste2[1] . "," . $liste2[0] . "," . $liste2[2] . ",'" . $niveau . "'," . $annee . ")");
             }
 
 
@@ -224,23 +237,34 @@ if ($ligne2['compte'] == 0) {
         if (isset($_POST['MarkerListToDelete'])) {
 
             echo "\n";
+
             $liste = explode("|||", $_POST['MarkerListToDelete']);
             for ($i = 1; $i < sizeof($liste); $i++) {
                 $liste2 = explode("||", $liste[$i]);
-                $results = $db->exec("DELETE FROM MARKER WHERE (x LIKE (SELECT TRIM(' " . $liste2[1] . "')) AND y LIKE '%" . $liste2[0] . "%' AND ID_OH=" . $liste2[2] . " AND Niveaux =" . $niveau . " AND Annee =" . $annee . ")");
+                $results = $db->exec("DELETE FROM MARKER WHERE (x LIKE (SELECT TRIM(' " . $liste2[1] . "')) AND y LIKE '%" . $liste2[0] . "%'  AND Niveaux ='" . $niveau . "' AND Annee =" . $annee . ")");
             }
-//$results = $db->exec
+            //$results = $db->exec
 
         }
 
 
-        ?> </div>
+        ?>
+    </div>
+
 </div>
 
-
+<form id="ID_Formulaire" action="" method="post">
+    <input type="hidden" ID="annee" name="annee">
+    <input type="hidden" ID="niveau" name="niveau">
+    <input type="hidden" ID="MarkerList" name="MarkerList" value="">
+    <input type="hidden" ID="MarkerListToDelete" name="MarkerListToDelete" value="">
+    <p>
+    <noscript><input type="submit" value="VALIDER" class="button"></noscript>
+    </p>
+</form>
 <script>
 
-    // $("#niveau").val(<?php echo $niveau ?>) ;
+
     $(function () {
 
         JQ213().timelinr({
@@ -248,7 +272,7 @@ if ($ligne2['compte'] == 0) {
 
                 datesSpeed: 0,
                 arrowKeys: 'true',
-                startAt:        <?php echo $niveau ?>
+                startAt:        <?php echo("'" . $niveau . "'"); ?>
 
             }
         )
@@ -263,8 +287,6 @@ if ($ligne2['compte'] == 0) {
 
 
             $("#niveau").val($("#dates").find('a.' + "selected").text());
-            console.log($('#niveau').val());
-            console.log(<?php echo $niveau ?> );
 
 
             $("#ID_Formulaire").submit();
@@ -306,6 +328,7 @@ if ($ligne2['compte'] == 0) {
 
 
 <script>
+
     var versailleIcon = L.icon({
         iconUrl: '../../images/marker.png',
         iconAnchor: [19, 50],
@@ -331,23 +354,24 @@ if ($ligne2['compte'] == 0) {
     var bounds = [xy(0, 0), xy(6507, 2319)];
     var image = L.imageOverlay('<?php echo $lien?>', bounds).addTo(map);
 
-
+    var booleanMarker = 0;
 
     <?php
-    $results = $db->query("SELECT x,y,Niveaux,Annee, Label_OH,ID_OH FROM MARKER NATURAL JOIN OH WHERE Annee = " . $annee . " AND Niveaux = " . $niveau . ";");
+
+    $results = $db->query("SELECT x,y,Niveaux,Annee, Label_OH,ID_OH FROM MARKER NATURAL JOIN OH WHERE Annee = " . $annee . " AND Niveaux = '" . $niveau . "';");
     $count = 0;
     while ($ligne = $results->fetch()) {
         $count++;
         $nom = "marker" . $count;
-
-        echo $nom . " = L.marker(xy(" . $ligne['x'] . ", " . $ligne['y'] . "), {icon: versailleIcon}).bindPopup('" . $ligne['ID_OH'] . "');";
+        echo "var markerAssocie=0;";
+        echo $nom . " = L.marker(xy(" . $ligne['x'] . ", " . $ligne['y'] . "), {icon: versailleIcon});";
 
         echo "var monTableau = [];
     var monTableauToDelete = [];";
         echo $nom . ".on('dblclick', function () {
-                  var monTableauTempToDelete = [" . $nom . ".getLatLng().toString().slice(7, -1).split(',')[0]," . $nom . ".getLatLng().toString().slice(7, -1).split(',')[1],$('#OH').val()];
+                  var monTableauTempToDelete = [" . $nom . ".getLatLng().toString().slice(7, -1).split(',')[0]," . $nom . ".getLatLng().toString().slice(7, -1).split(',')[1]];
         
-        
+                    console.log(monTableauTempToDelete);
                     
                         
                         monTableauToDelete.push(monTableauTempToDelete);
@@ -356,6 +380,27 @@ if ($ligne2['compte'] == 0) {
                     
         " . $nom . ".remove(this);
                 });";
+
+        echo $nom . ".on('click', function () {
+                if (booleanMarker == 1 && markerAssocie ==" . $ligne['ID_OH'] . "){
+    $('#PopupMarker').hide();
+    booleanMarker =0; }
+    else{
+    var texte ='" . $ligne['Label_OH'] . " <br/><br>coeifoezjfpeojf';
+    $('#PopupMarker').show();
+    $('#Nom').html(texte);
+           $('#Mort').html(texte);
+           $('#PopupMarker').addClass('bonBg border border-warning p-3');
+           $('#croix').html('&#10006');
+           $('#croix').on('click',function (){
+               $('#PopupMarker').hide();
+                booleanMarker=0;})
+           ;
+           booleanMarker =1;
+           markerAssocie = " . $ligne['ID_OH'] . "
+       }
+    });";
+
         echo $nom . ".addTo(map);";
 
     }
@@ -370,13 +415,16 @@ if ($ligne2['compte'] == 0) {
     var monTableauToDelete = [];
 
     map.on("contextmenu", function (event) {
-        console.log("user right-clicked on map coordinates: " + event.latlng.toString());
-        var marker = L.marker(event.latlng, {icon: versailleIcon}).bindPopup($("#OH").val());
+
+        var booleanMarker = 0;
+
+        var marker = L.marker(event.latlng, {icon: versailleIcon});
         var monTableauTemp = [event.latlng.toString().slice(7, -1).split(",")[0], event.latlng.toString().slice(7, -1).split(",")[1], $("#OH").val()];
 
+        var markerAssocie = 0;
 
         marker.on('dblclick', function () {
-            var monTableauTempToDelete = [this.getLatLng().toString().slice(7, -1).split(",")[0], this.getLatLng().toString().slice(7, -1).split(",")[1], $("#OH").val()];
+            var monTableauTempToDelete = [this.getLatLng().toString().slice(7, -1).split(",")[0], this.getLatLng().toString().slice(7, -1).split(",")[1]];
 
 
             var validate = 0;
@@ -384,9 +432,8 @@ if ($ligne2['compte'] == 0) {
 
             for ($i = 0; $i < monTableau.length; $i++) {
 
-                console.log(monTableau[$i]);
-                console.log(monTableau[$i].join() === monTableauTempToDelete.join());
-                if (monTableau[$i].join() === monTableauTempToDelete.join()) {
+
+                if (monTableau[$i][0] === monTableauTempToDelete[0] && monTableau[$i][1] === monTableauTempToDelete[1]) {
 
                     var supp = monTableau.splice($i, 1);
                     validate = 1;
@@ -396,6 +443,33 @@ if ($ligne2['compte'] == 0) {
 
 
         })
+
+        marker.on('click', function () {
+
+
+            if (booleanMarker == 1 && markerAssocie == $('#OH').val()) {
+
+                $('#PopupMarker').hide();
+                booleanMarker = 0;
+            } else {
+
+                var texte = monTableauTemp[2] + "<br/><br>coeifoezjfpeojf"
+                $('#PopupMarker').show();
+                $('#Nom').html(texte);
+                $('#Mort').html(texte);
+                $('#PopupMarker').addClass("bonBg border border-warning p-3");
+                $('#croix').html('&#10006');
+                $('#croix').on('click', function () {
+                    $('#PopupMarker').hide();
+                    booleanMarker = 0;
+                })
+                ;
+                booleanMarker = 1;
+                markerAssocie = monTableauTemp[2]
+            }
+        });
+
+
         marker.addTo(map);
         monTableau.push(monTableauTemp);
 
@@ -419,7 +493,7 @@ if ($ligne2['compte'] == 0) {
 
             $("#MarkerList").val(markerTxt);
             $("#MarkerListToDelete").val(markerTxtToDelete);
-            $("#niveau").val(<?php echo $niveau?>);
+            $("#niveau").val( <?php echo("'" . $niveau . "'"); ?>);
             $("#annee").val(<?php echo $annee?>);
             $("#ID_Formulaire").submit();
 
@@ -488,7 +562,7 @@ if ($ligne2['compte'] == 0) {
                         text: false
                     })
                     .removeClass("ui-corner-all")
-                    .addClass("custom-combobox-toggle ui-corner-right")
+                    .addClass("custom-combobox-toggle ui-corner-right ")
                     .on("mousedown", function () {
                         wasOpen = input.autocomplete("widget").is(":visible");
                     })
