@@ -29,7 +29,7 @@ if (isset($_SESSION['Profil'])) {
                 </div>
 
                 <div class="pl-3 pr-3 d-inline-block w-45  bg-dark text-white">
-                    <a href="#" class="btn text-white bg-dark">Gestion des Cartes et Dates</a>
+                    <a href="admin/mapManager.php" class="btn text-white bg-dark">Gestion des Cartes et Dates</a>
                 </div>
 
                 <div class="pl-3 pr-3 d-inline-block w-45  bg-dark text-white">
@@ -50,14 +50,22 @@ if (isset($_SESSION['Profil'])) {
 
 
         <?php
-    } else if ($_SESSION['Profil'] == 'Contributeur') {
+    } elseif ($_SESSION['Profil'] == 'Contributeur') {
         ?>
+
         <header id="header" class="border border-warning">
-            <div class="d-inline-block w-100 text-white bg-dark ">
+            <div class=" w-100 text-white bg-dark ">
                 <h2 class="w-45  d-inline-block">
                     <a href="Index.php"><img src="../images/autre/logo_mini.png" class="w-auto" alt=""></a>Immersailles
-                    -
-                    Contributeur</h2>
+                    - Admin
+                </h2>
+
+
+                <div class="pl-3 pr-3 d-inline-block w-45  bg-dark text-white">
+                    <a href="admin/editMarker.php" class="btn text-white bg-dark w-45">Gestion des Markers</a>
+                </div>
+
+
                 <h2 class="w-45 d-inline-block float-right">
                     <a href="Apropos.php" class="text-white font-weight-lighter">A propos</a>
                     <img src="../images/autre/logo_mini.png" class="w-auto" alt="">
@@ -65,8 +73,14 @@ if (isset($_SESSION['Profil'])) {
                 </h2>
 
             </div>
+
+
         </header>
+
+
         <?php
+    } else {
+
     }
 }
 else{

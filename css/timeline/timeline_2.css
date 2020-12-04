@@ -49,7 +49,7 @@ h1 {
     overflow: hidden;
 
     position: relative;
-    background: url('http://www.csslab.cl/ejemplos/timelinr/latest/images/dot.gif') 3px top repeat-y;
+    background: url('../../images/autre/dot.gif') 3px top repeat-y;
 
 }
 
@@ -67,7 +67,7 @@ h1 {
     line-height: 75px;
     font-size: 24px;
     padding-left: 10px;
-    background: url('http://www.csslab.cl/ejemplos/timelinr/latest/images/biggerdot.png') left center no-repeat;
+    background: url('../../images/autre/biggerdot.png') left center no-repeat;
 }
 
 #dates a {

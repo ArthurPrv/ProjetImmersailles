@@ -1,3 +1,15 @@
+<?php
+session_start();
+if (!isset($_SESSION['Profil'])) {
+    header('location:../Index.php');
+} elseif (($_SESSION['Profil'] != 'Administrateur') && ($_SESSION['Profil'] != 'Contributeur')) {
+    header("location:../Index.php");
+}
+
+
+?>
+
+
 <head>
     <!--leaflet css -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -229,10 +241,10 @@ if ($ligne2['compte'] == 0) {
             $liste = explode("|||", $_POST['MarkerList']);
             for ($i = 1; $i < sizeof($liste); $i++) {
                 $liste2 = explode("||", $liste[$i]);
-                $results = $db->exec("INSERT INTO MARKER( x, y, ID_OH, Niveaux, Annee) VALUES (" . $liste2[1] . "," . $liste2[0] . "," . $liste2[2] . ",'" . $niveau . "'," . $annee . ")");
+                $results = $db->exec("INSERT INTO MARKER( x, y, ID_OH, Niveaux, Annee) VALUES (" . $liste2[1] . "," . $liste2[0] . ",'" . $liste2[2] . "','" . $niveau . "'," . $annee . ")");
             }
 
-
+            //$results = $db->exec
         }
         if (isset($_POST['MarkerListToDelete'])) {
 
@@ -289,7 +301,7 @@ if ($ligne2['compte'] == 0) {
             $("#niveau").val($("#dates").find('a.' + "selected").text());
 
 
-            $("#ID_Formulaire").submit();
+            if ($niveau2 !== $("#niveau").val()) $("#ID_Formulaire").submit();
         }
 
 

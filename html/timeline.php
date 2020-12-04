@@ -25,6 +25,7 @@ $results3 = $db->query("SELECT MIN(Annee) miniAnnee FROM Carte_Nvx;")->fetch();
 
 $annee = isset($_POST['annee']) ? $_POST['annee'] : $results3['miniAnnee']; //REQUETE AVEC PETITE
 $niveau = isset($_POST['niveau']) ? $_POST['niveau'] : 1;
+
 $results2 = $db->query("SELECT COUNT(*) compte FROM Carte_Nvx WHERE Annee = '" . $annee . "' AND Niveaux = '" . $niveau . "';");
 $ligne2 = $results2->fetch();
 if ($ligne2['compte'] == 0) {
@@ -69,11 +70,17 @@ if ($ligne2['compte'] == 0) {
         <ul id="dates">
             <?php
             $results = $db->query("SELECT Niveaux FROM Carte_Nvx WHERE Annee='" . $annee . "';");
+
             while ($ligne2 = $results->fetch()) {
+
                 if ($niveau == $ligne2['Niveaux']) {
+
                     echo "<li><a href='#" . $ligne2['Niveaux'] . "' class='selected'>" . $ligne2['Niveaux'] . "</a></li>";
+
                 } else {
-                    echo "<li><a href='#" . $ligne2['Niveaux'] . "' >" . $ligne2['Niveaux'] . "</a></li>";
+
+                    echo "<li><a href='#" . $ligne2['Niveaux'] . "'>" . $ligne2['Niveaux'] . "</a></li>";
+
                 }
             }
             $results->closeCursor();
@@ -163,35 +170,29 @@ if ($ligne2['compte'] == 0) {
 </div>
 
 <script>
-
-    // $("#niveau").val(<?php echo $niveau ?>) ;
-    $(function () {
-
-        $().timelinr({
-                orientation: 'vertical',
-
-                datesSpeed: 0,
-                arrowKeys: 'true',
-                startAt:        <?php echo("'" . $niveau . "'"); ?>
-
-            }
-        )
+    $niveau2 = <?php echo("'" . $niveau . "'"); ?>
 
 
-    });
-    $boolean = 1;
+        $(function () {
+
+            $().timelinr({
+                    orientation: 'vertical',
+
+                    datesSpeed: 0,
+                    arrowKeys: 'true',
+                    startAt: $niveau2
+
+                }
+            )
+
+
+        });
     $("#dates").on("click", function () {
-        if ($boolean == 1) {
-            $boolean = 0;
-        } else {
 
-
-            $("#niveau").val($("#dates").find('a.' + "selected").text());
-
-
-
-            $("#ID_Formulaire").submit();
-        }
+        $("#niveau").val($("#dates").find('a.' + "selected").text());
+        console.log($("#niveau").val());
+        console.log($niveau2);
+        if ($niveau2 !== $("#niveau").val()) $("#ID_Formulaire").submit();
 
 
     });
@@ -283,6 +284,7 @@ if ($ligne2['compte'] == 0) {
                 $link = 'https://www.wikidata.org/wiki/Special:EntityData/' . $id . '.json';
                 $objet = json_decode(file_get_contents($link));
                 $objetV2 = $objet->entities->$id->claims;
+
                 //print_r($objet);
 
 
@@ -293,7 +295,7 @@ if ($ligne2['compte'] == 0) {
                     $safeFilename = str_replace(" ", "_", $filename);
                     $md5SafeFilename = md5($safeFilename);
                     $filenameForUpload = 'https://upload.wikimedia.org/wikipedia/commons/' . substr($md5SafeFilename, 0, 1) . '/' . substr($md5SafeFilename, 0, 2) . '/' . $safeFilename;
-                    $imageLink = "<br/><img height=200px width = auto src=\"" . $filenameForUpload . "\" >";
+                    $imageLink = "<br/><div style=\'text-align: center\'><img  height=200px width = auto src=\"" . $filenameForUpload . "\" ></div>";
                 } else {
                     $imageLink = '<br/>Aucune image n`existe pour ce marker';
                     //Donner une image avec une croix
@@ -304,7 +306,7 @@ if ($ligne2['compte'] == 0) {
                 //_________________Avoir le nom_____________________
 
                 if (isset($objetV2->P1559[0]->mainsnak->datavalue->value->text)) {
-                    $nameInOriginalState = $objetV2->P1559[0]->mainsnak->datavalue->value->text;
+                    $nameInOriginalState = "<div style=\' font-size:22px; text-align: center ;font-weight : bold ; color:#E99C16 \' >" . $objetV2->P1559[0]->mainsnak->datavalue->value->text . "</div>";
                 } else {
                     $nameInOriginalState = 'Le nom de cette personne n`est pas défini';
                 }
@@ -322,9 +324,9 @@ if ($ligne2['compte'] == 0) {
                     $birthPlaceID = ($objetV2->P19[0]->mainsnak->datavalue->value->id);
 
 
-                    $link = 'https://www.wikidata.org/wiki/Special:EntityData/' . $birthPlaceID . '.json';
-                    $objet = json_decode(file_get_contents($link));
-                    $birthPlace = $objet->entities->$birthPlaceID->labels->fr->value;
+                    $linkBirth = 'https://www.wikidata.org/wiki/Special:EntityData/' . $birthPlaceID . '.json';
+                    $objetBirth = json_decode(file_get_contents($linkBirth));
+                    $birthPlace = $objetBirth->entities->$birthPlaceID->labels->fr->value;
 
                 } else {
                     $birthPlace = 'L`endroit de naissance est inconnu';
@@ -352,16 +354,45 @@ if ($ligne2['compte'] == 0) {
                 } else {
                     $deathPlace = 'L`endroit du décès est inconnu';
                 }
+
+
+                //_________________Avoir le lien Wikipedia_____________________
+
+                if (isset($objet->entities->$id->sitelinks->frwiki->url)) {
+                    $link3 = $objet->entities->$id->sitelinks->frwiki->url;
+                    $lienWikipedia = "<br/><a target=\"_blank\" href=\"" . $link3 . "\">Plus d\'infos</a>";
+                } else {
+                    $lienWikipedia = 'Pas de page Wikipedia associée';
+                }
+                //print_r("\nNom : ".$nameInOriginalState);
+
+                //_________________Avoir la description_____________________
+
+                if (isset($objet->entities->$id->descriptions->fr->value)) {
+                    $description = $objet->entities->$id->descriptions->fr->value;
+                    $descriptionText = "<div style=\'text-align: center\' ><i>" . $description . "</i></div>";
+                } else {
+                    $description = 'Pas de description';
+                }
+
+
+
+
                 //_________________description_____________________
 
-                print_r("'<br/>Nom : {$nameInOriginalState}");
+                print_r("'{$nameInOriginalState}");
                 print_r($imageLink);
+                print_r($descriptionText);
                 print_r("<br/>Née le:{$dateOfBirth}");
                 print_r("<br/>Lieu de naissance :{$birthPlace}");
                 print_r("<br/>Décédé le:{$dateOfDeath}");
-                print_r("<br/>Lieu de décès : {$deathPlace}'");
-
+                print_r("<br/>Lieu de décès : {$deathPlace}");
+                print_r("<br/>{$lienWikipedia}'");
                 ?>
+
+
+
+
 
             );
             $('#PopupMarker').addClass("border border-warning p-3");
