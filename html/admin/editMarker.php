@@ -68,10 +68,14 @@ $results3 = $db->query("SELECT MIN(Annee) miniAnnee FROM Carte_Nvx;")->fetch();
 
 $annee = isset($_POST['annee']) ? $_POST['annee'] : $results3['miniAnnee']; //REQUETE AVEC PETITE
 $niveau = isset($_POST['niveau']) ? $_POST['niveau'] : 1;
+
 $results2 = $db->query("SELECT COUNT(*) compte FROM Carte_Nvx WHERE Annee = '" . $annee . "' AND Niveaux = '" . $niveau . "';");
 $ligne2 = $results2->fetch();
+
 if ($ligne2['compte'] == 0) {
-    $niveau = 1;
+    $results = $db->query("SELECT min(Niveaux) maxi FROM Carte_Nvx WHERE Annee = '" . $annee . "';");
+    $ligne3 = $results->fetch();
+    $niveau = $ligne3['maxi'];
 }
 
 
@@ -274,8 +278,9 @@ if ($ligne2['compte'] == 0) {
     <noscript><input type="submit" value="VALIDER" class="button"></noscript>
     </p>
 </form>
-<script>
 
+<script>
+    var niveau2 = '<?php echo $niveau ?>';
 
     $(function () {
 
@@ -284,7 +289,7 @@ if ($ligne2['compte'] == 0) {
 
                 datesSpeed: 0,
                 arrowKeys: 'true',
-                startAt:        <?php echo("'" . $niveau . "'"); ?>
+                startAt: "ffe"
 
             }
         )
@@ -293,16 +298,11 @@ if ($ligne2['compte'] == 0) {
     });
     $boolean = 1;
     $("#dates").on("click", function () {
-        if ($boolean === 1) {
-            $boolean = 0;
-        } else {
+
+        $("#niveau").val($("#dates").find('a.' + "selected").text());
 
 
-            $("#niveau").val($("#dates").find('a.' + "selected").text());
-
-
-            if ($niveau2 !== $("#niveau").val()) $("#ID_Formulaire").submit();
-        }
+        if (niveau2 != $("#niveau").val()) $("#ID_Formulaire").submit();
 
 
     });

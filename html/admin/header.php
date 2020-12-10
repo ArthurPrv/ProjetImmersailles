@@ -10,7 +10,7 @@ if (isset($_SESSION['Profil'])) {
                 border-bottom-width: 1px !important;
                 border-top-width: 0px !important;
                 border-right-width: 0px !important;
-
+                white-space: nowrap !important;
             }
         </style>
         <header id="header" class="border border-warning">
@@ -33,6 +33,9 @@ if (isset($_SESSION['Profil'])) {
                     <a href="Gestion_user.php" class="btn text-white bg-dark">Gestion des Utilisateurs</a>
                 </div>
 
+                <div class="pl-3 pr-3 d-inline-block w-45  bg-dark text-white">
+                    <a href="Gestion_OH.php" class="btn text-white bg-dark">Gestion des Objets Historiques</a>
+                </div>
 
                 <h2 class="w-45 d-inline-block float-right">
                     <a href="Apropos.php" class="text-white font-weight-lighter">A propos</a>
@@ -81,7 +84,6 @@ if (isset($_SESSION['Profil'])) {
 
 
         </header>
-
 
         <?php
     } else {

@@ -1,8 +1,7 @@
 <link rel="stylesheet" href="../css/timeline/timeline.css">
 <link rel="stylesheet" href="../css/timeline/timeline_2.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://www.csslab.cl/ejemplos/timelinr/latest/js/jquery.timelinr-0.9.54.js"></script>
+<script src="../css/timeline/http_cdnjs.cloudflare.com_ajax_libs_jquery_3.2.1_jquery.js"></script>
+<script src="../css/timeline/http_www.csslab.cl_ejemplos_timelinr_latest_js_jquery.timelinr-0.9.54.js"></script>
 
 <!--leaflet css -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -29,7 +28,10 @@ $niveau = isset($_POST['niveau']) ? $_POST['niveau'] : 1;
 $results2 = $db->query("SELECT COUNT(*) compte FROM Carte_Nvx WHERE Annee = '" . $annee . "' AND Niveaux = '" . $niveau . "';");
 $ligne2 = $results2->fetch();
 if ($ligne2['compte'] == 0) {
-    $niveau = 1;
+
+    $results = $db->query("SELECT min(Niveaux) maxi FROM Carte_Nvx WHERE Annee = '" . $annee . "';");
+    $ligne3 = $results->fetch();
+    $niveau = $ligne3['maxi'];
 }
 
 
@@ -69,7 +71,7 @@ if ($ligne2['compte'] == 0) {
     <div id="timeline" class="input-flex-container  d-inline-block mt-3">
         <ul id="dates">
             <?php
-            $results = $db->query("SELECT Niveaux FROM Carte_Nvx WHERE Annee='" . $annee . "';");
+            $results = $db->query("SELECT Niveaux FROM Carte_Nvx WHERE Annee='" . $annee . "' ;");
 
             while ($ligne2 = $results->fetch()) {
 
@@ -85,10 +87,7 @@ if ($ligne2['compte'] == 0) {
             }
             $results->closeCursor();
 
-            /*
-            <li><a href="#1" class="selected">1</a></li>
-            <li><a href="#2">2</a></li>
-            <li><a href="#3">3</a></li>*/
+
             ?>
         </ul>
 
@@ -158,8 +157,6 @@ if ($ligne2['compte'] == 0) {
         $temp_annee = $ligne['Annee'];
         $class = $temp_annee == $annee ? 'input active' : 'input';
         echo "
-        
-                    
                     <div class='" . $class . "'  data-year='" . $temp_annee . "'>
                     <span data-year='" . $temp_annee . "' class=data-year data-info='' ></span>
                 </div>";
@@ -170,29 +167,30 @@ if ($ligne2['compte'] == 0) {
 </div>
 
 <script>
-    $niveau2 = <?php echo("'" . $niveau . "'"); ?>
+    var niveau2 = '<?php echo $niveau ?>';
 
 
-        $(function () {
+    $(function () {
 
-            $().timelinr({
-                    orientation: 'vertical',
+        $().timelinr({
+                orientation: 'vertical',
 
-                    datesSpeed: 0,
-                    arrowKeys: 'true',
-                    startAt: $niveau2
+                datesSpeed: 0,
+                arrowKeys: 'true',
+                startAt: 'ffe'
 
-                }
-            )
+            }
+        )
 
 
-        });
+    });
+
     $("#dates").on("click", function () {
 
         $("#niveau").val($("#dates").find('a.' + "selected").text());
-        console.log($("#niveau").val());
-        console.log($niveau2);
-        if ($niveau2 !== $("#niveau").val()) $("#ID_Formulaire").submit();
+
+
+        if (niveau2 != $("#niveau").val()) $("#ID_Formulaire").submit();
 
 
     });
@@ -200,7 +198,6 @@ if ($ligne2['compte'] == 0) {
 <script>
 
 
-    //THOMAS LE SORCIER
     $("#annee").val(<?php echo $annee ?>);
 
     $(function () {
@@ -269,6 +266,7 @@ if ($ligne2['compte'] == 0) {
     var marker = L.marker(xy(<?php echo $ligne['x'] ?>,<?php echo $ligne['y'] ?>), {icon: versailleIcon})
     marker.on('click', function () {
 
+
         if (booleanMarker == 1 && markerAssocie == <?php echo "'{$ligne['ID_OH']}'"; ?>) {
 
             $('#PopupMarker').hide();
@@ -297,7 +295,7 @@ if ($ligne2['compte'] == 0) {
                     $filenameForUpload = 'https://upload.wikimedia.org/wikipedia/commons/' . substr($md5SafeFilename, 0, 1) . '/' . substr($md5SafeFilename, 0, 2) . '/' . $safeFilename;
                     $imageLink = "<br/><div style=\'text-align: center\'><img  height=200px width = auto src=\"" . $filenameForUpload . "\" ></div>";
                 } else {
-                    $imageLink = '<br/>Aucune image n`existe pour ce marker';
+                    $imageLink = "<br/>Aucune image n'existe pour ce marker";
                     //Donner une image avec une croix
                 }
                 //echo "<img height=200px width = auto src='".$filenameForUpload."' >";
@@ -329,7 +327,7 @@ if ($ligne2['compte'] == 0) {
                     $birthPlace = $objetBirth->entities->$birthPlaceID->labels->fr->value;
 
                 } else {
-                    $birthPlace = 'L`endroit de naissance est inconnu';
+                    $birthPlace = "L'endroit de naissance est inconnu";
                 }
                 //print_r("\nLieu de naissance : ".$birthPlace);
 
@@ -352,7 +350,7 @@ if ($ligne2['compte'] == 0) {
                     $deathPlace = $objetdeath->entities->$deathPlaceID->labels->fr->value;
 //print_r("\nLieu de décès : ".$deathPlace);
                 } else {
-                    $deathPlace = 'L`endroit du décès est inconnu';
+                    $deathPlace = "L'endroit du décès est inconnu";
                 }
 
 
@@ -395,6 +393,7 @@ if ($ligne2['compte'] == 0) {
 
 
             );
+
             $('#PopupMarker').addClass("border border-warning p-3");
             $('#croix').html('&#10006');
             $('#croix').on('click', function () {

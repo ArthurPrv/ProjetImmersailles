@@ -36,6 +36,9 @@ if (!isset($_SESSION['Profil'])) {
     <script type="text/javascript" src="../../DataTables/dataTables.bootstrap4.min.js"></script>
 
 
+    <link rel="icon" type="image/png" href="../../images/autre/logo_mini.png"/>
+
+
 </head>
 <?php
 include("header.php");
@@ -46,10 +49,10 @@ include '../connexion_bdd.php';
 <div class="d-block  border-bottom border-dark ">
 
     <div class="ml-3 d-inline-flex pr-3 border-right border-dark pb-3" style="width: 48%">
-        <div style="width: 100%">
-            <form action="" method="post">
+        <div style=" width: 100%; margin:3% 30% 3% 30% ;  border-radius: 10px; background-color: #49494A; color: white">
+            <form action="" method="post" style="text-align:center !important;">
 
-                <h2 style="text-align: center">Ajout utilisateur</h2>
+                <h2 style="text-align:center">Ajout utilisateur</h2>
                 <p style="text-align: center">Vous allez ajouter un nouvel utilisateur à la base de données : </p>
 
                 <br>
@@ -71,7 +74,7 @@ include '../connexion_bdd.php';
                 <label>Mot de passe : </label><br>
                 <input type="text" name="mdp"><br>
 
-                <p>
+                <p class="py-2">
                     <input type="submit" value="VALIDER" class="button">
                 </p>
 
@@ -115,8 +118,7 @@ include '../connexion_bdd.php';
                 //requete permettant d'afficher tous les employés de la plateforme sous la forme d'un tableau
 
                 $results = $db->query("SELECT ID_User, Login, Profil, Mail FROM AUTHENTIFICATION;");
-                echo '<table>';
-                echo '<tr><th></th><th>Numéro Utilisateur</th><th>Login</th><th>Role</th><th>Mail</th></tr>';
+                echo '<table class="table100-head"><thead><tr ><th></th><th>Numéro Utilisateur</th><th>Login</th><th>Role</th><th>Mail</th></tr></thead>';
                 while ($ligne = $results->fetch()) {
 
                     echo '<tr><td><input type="radio" name="ID" value="' . $ligne['ID_User'] . '"></td><td>' . $ligne['ID_User'] . '</td><td>' . $ligne['Login'] . '</td><td>' . $ligne['Profil'] . '</td><td>' . $ligne['Mail'] . '</td></tr>';
@@ -126,7 +128,7 @@ include '../connexion_bdd.php';
 
                 ?>
 
-                <p>
+                <p class="text-center py-2">
                     <input type="reset" value="Retour" class="button">
                     <input type="submit" value="VALIDER" class="button">
                 </p>
@@ -141,7 +143,7 @@ include '../connexion_bdd.php';
             if (isset($_POST['ID'])) {
             if (!(isset($_POST["ID"]) && isset($_POST['Login']) && isset($_POST['Profil']) && isset($_POST['mail']))) {
 
-            echo('<div style="width: 100%"> <h2 style="text-align: center">Modifier employé</h2><form action="" method="post">');
+            echo('<div style=" width: 100%; margin:3% 30% 3% 30% ;  border-radius: 10px; background-color: #49494A; color: white; text-align: center !important;"> <h2 style="text-align: center">Modifier employé</h2><form action="" method="post">');
             echo('<input type=hidden name=ID value=' . $_POST['ID'] . '> ');
 
             $results = $db->query("SELECT ID_User, Login, Profil, Mail , Password FROM AUTHENTIFICATION WHERE ID_User = " . $_POST['ID'] . ";");
@@ -170,7 +172,7 @@ include '../connexion_bdd.php';
 
             ?>
 
-            <p>
+            <p class="py-2">
                 <input type=submit value=VALIDER class=button>
             </p>
 
@@ -196,7 +198,7 @@ include '../connexion_bdd.php';
 
 <div class='d-block ml-2 mr-4 pt-3' style=' margin-bottom: 1%'><h2 style="text-align: center">Suivi des connexions</h2>
     <table id='dataTable' class='table table-striped table-bordered m-5' style='width:90%'>
-        <thead>
+        <thead style="color: white !important;">
         <tr>
             <th>ID</th>
             <th>Login</th>
