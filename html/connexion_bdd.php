@@ -16,4 +16,3 @@ try {
     die('Connexion impossible à la base de données !' . $e->getMessage());
 
 }
-?>

@@ -1,15 +1,15 @@
 <?php
 
-
+//Affichage des differents header en fonction des variables de session
 if (isset($_SESSION['Profil'])) {
     if ($_SESSION['Profil'] == 'Administrateur') {
         ?>
         <style>
             #header {
-                border-left-width: 0px !important;
+                border-left-width: 0 !important;
                 border-bottom-width: 1px !important;
-                border-top-width: 0px !important;
-                border-right-width: 0px !important;
+                border-top-width: 0 !important;
+                border-right-width: 0 !important;
                 white-space: nowrap !important;
             }
         </style>
@@ -38,7 +38,7 @@ if (isset($_SESSION['Profil'])) {
                 </div>
 
                 <h2 class="w-45 d-inline-block float-right">
-                    <a href="Apropos.php" class="text-white font-weight-lighter">A propos</a>
+                    <a href="" class="text-white font-weight-lighter">A propos</a>
                     <img src="../../images/autre/logo_mini.png" class="w-auto" alt="">
                     <a href="../deconnexion.php"><img src="../../images/autre/logo_mini.png" class="w-auto" alt=""></a>
                 </h2>
@@ -54,10 +54,10 @@ if (isset($_SESSION['Profil'])) {
         ?>
         <style>
             #header {
-                border-left-width: 0px !important;
+                border-left-width: 0 !important;
                 border-bottom-width: 1px !important;
-                border-top-width: 0px !important;
-                border-right-width: 0px !important;
+                border-top-width: 0 !important;
+                border-right-width: 0 !important;
 
             }
         </style>
@@ -75,7 +75,7 @@ if (isset($_SESSION['Profil'])) {
 
 
                 <h2 class="w-45 d-inline-block float-right">
-                    <a href="Apropos.php" class="text-white font-weight-lighter">A propos</a>
+                    <a href="" class="text-white font-weight-lighter">A propos</a>
                     <img src="../../images/autre/logo_mini.png" class="w-auto" alt="">
                     <a href="../deconnexion.php"><img src="../../images/autre/logo_mini.png" class="w-auto" alt=""></a>
                 </h2>
@@ -90,7 +90,25 @@ if (isset($_SESSION['Profil'])) {
         header("location:../Index.php");
     }
 } else {
-    header("location:../Index.php");
+
+    ?>
+    <header id="header" class="border border-warning">
+        <div class="d-inline-block w-100 text-white bg-dark ">
+            <h2 class="w-45  d-inline-block">
+                <a href="../Index.php"><img src="../../images/autre/logo_mini.png" class="w-auto" alt=""></a>Immersailles
+            </h2>
+            <h2 class="w-45 d-inline-block float-right">
+                <a href="" class="text-white font-weight-lighter">A propos</a>
+                <img src="../../images/autre/logo_mini.png" class="w-auto" alt="">
+                <a href="../connexion.php">
+                    <img src="../../images/autre/profil.png" class="w-auto" alt="">
+                </a>
+            </h2>
+
+        </div>
+    </header>
+    <?php
 }
 ?>
+
 

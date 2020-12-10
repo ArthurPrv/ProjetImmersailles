@@ -11,16 +11,16 @@ if (!isset($_SESSION['Profil'])) {
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 
 <head>
-    <title>GestionUser</title>
+    <title>Gestion Utilisateurs</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:ital,wght@0,300;1,500' rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -37,18 +37,24 @@ if (!isset($_SESSION['Profil'])) {
 
 
     <link rel="icon" type="image/png" href="../../images/autre/logo_mini.png"/>
-
+    <link rel="stylesheet" href="../../css/timeline/timeline.css">
+    <link rel="stylesheet" href="../../css/timeline/timeline_2.css">
 
 </head>
 <?php
 include("header.php");
 include '../connexion_bdd.php';
 ?>
-<body>
 
+<body style=" background-color: rgba(255,203,72,0.25);">
+
+<!-- Gestion User -->
 <div class="d-block  border-bottom border-dark ">
 
+    <!-- Ajouter un utilisateur dans la Base de Données-->
     <div class="ml-3 d-inline-flex pr-3 border-right border-dark pb-3" style="width: 48%">
+
+
         <div style=" width: 100%; margin:3% 30% 3% 30% ;  border-radius: 10px; background-color: #49494A; color: white">
             <form action="" method="post" style="text-align:center !important;">
 
@@ -59,20 +65,28 @@ include '../connexion_bdd.php';
 
 
                 <label>Login : </label><br>
-                <input type="text" name="Login"><br>
+                <label>
+                    <input type="text" name="Login">
+                </label><br>
 
                 <label>Profil : </label><br>
-                <select name="Profil">
-                    <option value="Administrateur">Administrateur</option>
-                    <option value="Contributeur">Contributeur</option>
+                <label>
+                    <select name="Profil">
+                        <option value="Administrateur">Administrateur</option>
+                        <option value="Contributeur">Contributeur</option>
 
-                </select><br>
+                    </select>
+                </label><br>
 
                 <label>Adresse mail : </label><br>
-                <input type="text" name="mail"><br>
+                <label>
+                    <input type="text" name="mail">
+                </label><br>
 
                 <label>Mot de passe : </label><br>
-                <input type="text" name="mdp"><br>
+                <label>
+                    <input type="text" name="mdp">
+                </label><br>
 
                 <p class="py-2">
                     <input type="submit" value="VALIDER" class="button">
@@ -101,16 +115,17 @@ include '../connexion_bdd.php';
         </div>
     </div>
 
+    <!-- Modifier les données d'un utilisateur dans la Base de Données-->
     <div class="d-inline-flex pl-3 pb-3" style="width:50%">
         <?php
         if ((!isset($_POST['ID'])) || (isset($_POST["ID"]) && isset($_POST['Login']) && isset($_POST['Profil']) && isset($_POST['mail']))) { ?>
 
 
-        <div style="width: 100%"><h2 style="text-align: center">Modifier employé</h2>
+        <div style=" width: 100%; margin:3% 10% 3% 10% ;  border-radius: 10px; background-color: #49494A; color: white">
+            <h2 style="text-align: center">Modifier employé</h2>
             <p style="text-align: center" id="ind">Choisissez un utilisateur à modifier: </p>
 
             <form action="" method="post">
-
 
                 <?php
 
@@ -118,10 +133,10 @@ include '../connexion_bdd.php';
                 //requete permettant d'afficher tous les employés de la plateforme sous la forme d'un tableau
 
                 $results = $db->query("SELECT ID_User, Login, Profil, Mail FROM AUTHENTIFICATION;");
-                echo '<table class="table100-head"><thead><tr ><th></th><th>Numéro Utilisateur</th><th>Login</th><th>Role</th><th>Mail</th></tr></thead>';
+                echo '<table class="table100-head" style="text-align: center ;margin: auto; border:1px solid black"><thead><tr style="border:1px solid black" ><th></th><th style="border:1px solid black" class="border-left-0">Numéro Utilisateur</th><th style="border:1px solid black">Login</th><th style="border:1px solid black">Role</th><th style="border:1px solid black">Mail</th></tr></thead>';
                 while ($ligne = $results->fetch()) {
 
-                    echo '<tr><td><input type="radio" name="ID" value="' . $ligne['ID_User'] . '"></td><td>' . $ligne['ID_User'] . '</td><td>' . $ligne['Login'] . '</td><td>' . $ligne['Profil'] . '</td><td>' . $ligne['Mail'] . '</td></tr>';
+                    echo '<tr style="border:1px solid black"><td><input type="radio" name="ID" value="' . $ligne['ID_User'] . '"></td><td style="border:1px solid black " class="border-left-0">' . $ligne['ID_User'] . '</td><td style="border:1px solid black">' . $ligne['Login'] . '</td><td style="border:1px solid black">' . $ligne['Profil'] . '</td><td style="border:1px solid black"> ' . $ligne['Mail'] . '</td></tr>';
                 }
                 echo '</table>';
 
@@ -129,7 +144,7 @@ include '../connexion_bdd.php';
                 ?>
 
                 <p class="text-center py-2">
-                    <input type="reset" value="Retour" class="button">
+
                     <input type="submit" value="VALIDER" class="button">
                 </p>
             </form>
@@ -195,10 +210,11 @@ include '../connexion_bdd.php';
 
 </div>
 
-
-<div class='d-block ml-2 mr-4 pt-3' style=' margin-bottom: 1%'><h2 style="text-align: center">Suivi des connexions</h2>
+<!-- CONSULTATION DES CONNEXIONS -->
+<div class='d-block ml-2 mr-4 pt-3' style=' margin-bottom: 1%'><h2
+            style="text-align: center ; color: black !important;">Suivi des connexions</h2>
     <table id='dataTable' class='table table-striped table-bordered m-5' style='width:90%'>
-        <thead style="color: white !important;">
+        <thead style="color: black !important;">
         <tr>
             <th>ID</th>
             <th>Login</th>
@@ -207,7 +223,7 @@ include '../connexion_bdd.php';
         </thead>
         <tbody>
         <?php
-        // CONSULTATION DES CONNEXIONS
+
 
         {
 

@@ -13,12 +13,12 @@ if (!isset($_SESSION['Profil'])) {
 
 
 <head>
-    <title>GestionOH</title>
+    <title>Gestion Objets Historiques</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:ital,wght@0,300;1,500' rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -36,105 +36,122 @@ if (!isset($_SESSION['Profil'])) {
 
     <link rel="icon" type="image/png" href="../../images/autre/logo_mini.png"/>
 
-
+    <link rel="stylesheet" href="../../css/timeline/timeline.css">
+    <link rel="stylesheet" href="../../css/timeline/timeline_2.css">
 </head>
 <?php
 include("header.php");
 include '../connexion_bdd.php';
 ?>
-<body>
+<body style=" background-color: rgba(255,203,72,0.25);">
+<div class="d-block   ">
+
+    <!-- ajout d'un nouvel Objet Historique-->
+    <div class="ml-3 d-inline-flex pr-3 border-dark pb-3" style="width: 48%">
+        <div style=" width: 100%; margin:3% 20% 3% 20% ;  border-radius: 10px; background-color: #49494A; color: white">
+            <form action="" method="post" style="text-align:center !important;">
+
+                <h2 style="text-align:center">Ajout OH</h2>
+                <p style="text-align: center">Vous allez ajouter un nouvel Objet Historique à la base de données : </p>
+
+                <br>
 
 
-<div class="ml-3 d-inline-flex pr-3 border-dark pb-3" style="width: 48%">
-    <div style=" width: 100%; margin:3% 20% 3% 20% ;  border-radius: 10px; background-color: #49494A; color: white">
-        <form action="" method="post" style="text-align:center !important;">
+                <label>Identifiant Wikidata : </label><br>
+                <label>
+                    <input type="text" name="ID_OH">
+                </label><br>
 
-            <h2 style="text-align:center">Ajout OH</h2>
-            <p style="text-align: center">Vous allez ajouter un nouvel Objet Historique à la base de données : </p>
+                <label>Type: </label><br>
+                <label>
+                    <select name="Type_OH">
+                        <option selected=selected value="Personnage">Personnage</option>
+                        <option value="Mobilier">Mobilier</option>
 
-            <br>
+                    </select>
+                </label><br>
 
-
-            <label>Identifiant Wikidata : </label><br>
-            <input type="text" name="ID_OH"><br>
-
-            <label>Type: </label><br>
-            <select name="Type_OH">
-                <option selected=selected value="Personnage">Personnage</option>
-                <option value="Mobilier">Mobilier</option>
-
-            </select><br>
-
-            <label>Label : </label><br>
-            <input type="text" name="Label_OH"><br>
+                <label>Label : </label><br>
+                <label>
+                    <input type="text" name="Label_OH">
+                </label><br>
 
 
-            <p class="py-2">
-                <input type="submit" value="VALIDER" class="button">
-            </p>
+                <p class="py-2">
+                    <input type="submit" value="VALIDER" class="button">
+                </p>
 
-        </form>
-        <?php
+            </form>
+            <?php
 
 
-        if (isset($_POST['ID_OH']) && isset($_POST['Type_OH']) && isset($_POST['Label_OH'])) {
-            if ($_POST['ID_OH'] != '' && $_POST['Label_OH'] != '') {
+            if (isset($_POST['ID_OH']) && isset($_POST['Type_OH']) && isset($_POST['Label_OH'])) {
+                if ($_POST['ID_OH'] != '' && $_POST['Label_OH'] != '') {
+
+
+                    //Ajout d'un nouveau utilisateur dans la base de donnée et affiche un message pour informer l'administrateur
+                    echo "<p style='text-align: center'>L'objet Historique suivant a été ajouté : <a target='_blank' href='https://www.wikidata.org/wiki/" . $_POST['ID_OH'] . "'>Page Wikidata</a> </p>";
+                    $results2 = $db->exec('INSERT INTO OH VALUES ("' . $_POST['ID_OH'] . '","' . $_POST['Label_OH'] . '","' . $_POST['Type_OH'] . '");');
+                }
+
+            }
+
+
+            ?>
+        </div>
+    </div>
+
+    <!-- Suppression Objet Historique-->
+    <div id="div2" class="ml-3 d-inline-flex pr-3  border-dark pb-3" style="width: 48%">
+        <div style=" width: 100%; margin:3% 20% 3% 20% ;  border-radius: 10px; background-color: #49494A; color: white">
+            <form action="" method="post" style="text-align:center !important;">
+
+                <h2 style="text-align:center">Suppression OH</h2>
+                <p style="text-align: center">Choisissez un Objet Historique à supprimer: </p>
+
+                <br>
+                <label>
+                    <select name="ID_OH_Select">
+                        <?php
+
+                        $results2 = $db->query("SELECT ID_OH, Label_OH FROM OH ;");
+                        while ($ligne2 = $results2->fetch()) {
+                            echo '<option value="' . $ligne2['ID_OH'] . '">' . $ligne2['Label_OH'] . '</option>';
+                        }
+
+                        ?>
+                    </select>
+                </label>
+
+
+                <p class="py-2">
+                    <input type="submit" value="SUPPRIMER" class="button">
+                </p>
+
+            </form>
+            <?php
+
+
+            if (isset($_POST['ID_OH_Select'])) {
 
 
                 //Ajout d'un nouveau utilisateur dans la base de donnée et affiche un message pour informer l'administrateur
-                echo "<p style='text-align: center'>L'objet Historique suivant a été ajouté : <a target='_blank' href='https://www.wikidata.org/wiki/" . $_POST['ID_OH'] . "'>Page Wikidata</a> </p>";
-                $results2 = $db->exec('INSERT INTO OH VALUES ("' . $_POST['ID_OH'] . '","' . $_POST['Label_OH'] . '","' . $_POST['Type_OH'] . '");');
+                echo "<p style='text-align: center'>L'objet Historique suivant a été suivant : <a target='_blank' href='https://www.wikidata.org/wiki/" . $_POST['ID_OH_Select'] . "'>Page Wikidata</a> </p>";
+                $results2 = $db->exec('DELETE FROM OH WHERE ID_OH = "' . $_POST['ID_OH_Select'] . '";');
+
+
             }
-            //$results2 = $db->exec
-        }
 
 
-        ?>
+            ?>
+        </div>
     </div>
 </div>
 
-<div id="div2" class="ml-3 d-inline-flex pr-3  border-dark pb-3" style="width: 48%">
-    <div style=" width: 100%; margin:3% 20% 3% 20% ;  border-radius: 10px; background-color: #49494A; color: white">
-        <form action="" method="post" style="text-align:center !important;">
+<div class="fixed-bottom">
+    <?php
 
-            <h2 style="text-align:center">Suppression OH</h2>
-            <p style="text-align: center">Choisissez un Objet Historique à supprimer: </p>
-
-            <br>
-            <select name="ID_OH_Select">
-                <?php
-
-                $results2 = $db->query("SELECT ID_OH, Label_OH FROM OH ;");
-                while ($ligne2 = $results2->fetch()) {
-                    echo '<option value="' . $ligne2['ID_OH'] . '">' . $ligne2['Label_OH'] . '</option>';
-                }
-
-                ?>
-            </select>
-
-
-            <p class="py-2">
-                <input type="submit" value="SUPPRIMER" class="button">
-            </p>
-
-        </form>
-        <?php
-
-
-        if (isset($_POST['ID_OH_Select'])) {
-
-
-            //Ajout d'un nouveau utilisateur dans la base de donnée et affiche un message pour informer l'administrateur
-            echo "<p style='text-align: center'>L'objet Historique suivant a été suivant : <a target='_blank' href='https://www.wikidata.org/wiki/" . $_POST['ID_OH_Select'] . "'>Page Wikidata</a> </p>";
-            $results2 = $db->exec('DELETE FROM OH WHERE ID_OH = "' . $_POST['ID_OH_Select'] . '";');
-
-            //$results2 = $db->exec
-        }
-
-
-        ?>
-    </div>
-</div>
-
+    include '../footer.php';
+    ?></div>
 </body>
 </html>

@@ -1,8 +1,8 @@
-<!-- permet de se déconnecter et de supprimer les onnées stocker dans $_SESSION -->
+<!-- permet de se déconnecter et de supprimer les données stockées dans $_SESSION -->
 
 <?php
 session_start();
 session_destroy();
 
-include("Index.php");
+header("location:Index.php");
 ?>

@@ -16,7 +16,7 @@ if (isset($_POST['lvl']) && isset($_POST['year']) && isset($_POST['plan'])) {
     if ($results['compare'] > 0) {
         //Si cette combinaison carte nvx annee existe deja dans la bdd
         if ($_POST['plan'] == "del") {
-            $db->query("DELETE FROM `Carte_Nvx` WHERE Niveaux='{$_POST['lvl']}' AND Annee='{$_POST['year']}';")->fetch();
+            $db->query("DELETE FROM Carte_Nvx WHERE Niveaux='{$_POST['lvl']}' AND Annee='{$_POST['year']}';")->fetch();
             $yearStay = $db->query("SELECT COUNT(*) compare FROM Carte_Nvx WHERE Annee='{$_POST['year']}';")->fetch();
             if ($yearStay['compare'] <= 0) {
                 $db->query("DELETE FROM ANNEE WHERE Annee='{$_POST['year']}';")->fetch();
@@ -25,12 +25,11 @@ if (isset($_POST['lvl']) && isset($_POST['year']) && isset($_POST['plan'])) {
 
         } else {
 
-            echo "1";
+
             $db->query("UPDATE `Carte_Nvx` SET `Carte`='{$_POST['plan']}' WHERE Niveaux='{$_POST['lvl']}' AND Annee='{$_POST['year']}'")->fetch();
         }
     } else {
-        //Si la combinaison carte nvx annee n'existe pas dans la bdd
-        echo "2";
+        //Si la combinaison carte niveaux annee n'existe pas dans la bdd
 
 
         $isYearhere = $db->query("SELECT COUNT(*) compare FROM ANNEE WHERE Annee={$_POST['year']}")->fetch();

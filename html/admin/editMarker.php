@@ -5,8 +5,6 @@ if (!isset($_SESSION['Profil'])) {
 } elseif (($_SESSION['Profil'] != 'Administrateur') && ($_SESSION['Profil'] != 'Contributeur')) {
     header("location:../Index.php");
 }
-
-
 ?>
 
 
@@ -29,8 +27,8 @@ if (!isset($_SESSION['Profil'])) {
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href='https://fonts.googleapis.com/css?family=Oxygen:400,300' rel='stylesheet' type='text/css'>
+    <link rel="icon" type="image/png" href="../../images/autre/logo_mini.png"/>
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:ital,wght@0,300;1,500' rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -63,10 +61,14 @@ if (!isset($_SESSION['Profil'])) {
 include("header.php");
 include("../connexion_bdd.php");
 
+
+//REQUETE POUR TROUVER LA PLUS PETITE DATE
 $results3 = $db->query("SELECT MIN(Annee) miniAnnee FROM Carte_Nvx;")->fetch();
 
 
-$annee = isset($_POST['annee']) ? $_POST['annee'] : $results3['miniAnnee']; //REQUETE AVEC PETITE
+//INITIALISE LES VALEURS ANNEE ET NIVEAU
+$annee = isset($_POST['annee']) ? $_POST['annee'] : $results3['miniAnnee'];
+
 $niveau = isset($_POST['niveau']) ? $_POST['niveau'] : 1;
 
 $results2 = $db->query("SELECT COUNT(*) compte FROM Carte_Nvx WHERE Annee = '" . $annee . "' AND Niveaux = '" . $niveau . "';");
@@ -91,24 +93,26 @@ if ($ligne2['compte'] == 0) {
         margin-top: 150% !important;
 
     }
-</style>
-<style>
-    .custom-combobox {
-        position: relative;
-        display: inline-block;
+
+    #OH ul {
+        left: 0 !important;
+        right: 0 !important;
+        max-height: 20%;
+        overflow-y: auto;
+        overflow-x: hidden;
+
     }
 
-    .custom-combobox-toggle {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        margin-left: -1px;
-        padding: 0;
-    }
+    #Choix_OH {
+        padding-left: 2%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-left-width: 5px !important;
+        border-bottom-width: 0 !important;
+        border-top-width: 0 !important;
+        border-right-width: 0 !important;
 
-    .custom-combobox-input {
-        margin: 0;
-        padding: 5px 10px;
+
     }
 
 </style>
@@ -117,7 +121,7 @@ if ($ligne2['compte'] == 0) {
 
 <div class="d-inline-flex bottom-0 mb-auto h-75 d-inline-block pl-3 " id="marginTop" style="">
 
-
+    <!--  Timeline de gauche pour les niveaux   -->
     <div id="timeline" class="input-flex-container h-75 d-inline-block mt-3">
         <ul id="dates">
             <?php
@@ -131,10 +135,7 @@ if ($ligne2['compte'] == 0) {
             }
             $results->closeCursor();
 
-            /*
-            <li><a href="#1" class="selected">1</a></li>
-            <li><a href="#2">2</a></li>
-            <li><a href="#3">3</a></li>*/
+
             ?>
         </ul>
 
@@ -144,7 +145,7 @@ if ($ligne2['compte'] == 0) {
 
     <div class="flex-parent d-inline-block  mt-3">
 
-
+        <!-- Requete pour afficher la carte associée a la combinaison niveau /  -->
         <?php
         $results = $db->query("SELECT Carte FROM Carte_Nvx WHERE Annee = " . $annee . " AND Niveaux = '" . $niveau . "';");
         while ($ligne = $results->fetch()) {
@@ -153,8 +154,10 @@ if ($ligne2['compte'] == 0) {
         $results->closeCursor();
         ?>
 
+        <!-- Affichage central avec la carte-->
         <div id="map"></div>
 
+        <!-- Timeline du bas pour les dates-->
         <div class="input-flex-container ">
 
 
@@ -184,35 +187,11 @@ if ($ligne2['compte'] == 0) {
     </div>
 
 
-    <style>
-        #OH ul {
-            left: 0 !important;
-            right: 0 !important;
-            max-height: 20%;
-            overflow-y: auto;
-            overflow-x: hidden;
-
-        }
-
-        #Choix_OH {
-            padding-left: 2%;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            border-left-width: 5px !important;
-            border-bottom-width: 0px !important;
-            border-top-width: 0px !important;
-            border-right-width: 0px !important;
-
-
-        }
-
-    </style>
-
-
+    <!--  Division qui permet de choisir l'Objet historique que l'on souhaite ajouter sur la carte  -->
     <div id="Choix_OH" class=" d-inline-block border border-warning pl-4 pr-2 ui-widget d-inline-block "
          style="min-width: 370px; min-height: max-content">
 
-
+        <!--  Affichage de la liste des Objets Historiques   -->
         <?php
 
         $results = $db->query("SELECT ID_OH, Label_OH, Type_OH FROM OH ORDER BY Type_OH,Label_OH;");
@@ -224,7 +203,7 @@ if ($ligne2['compte'] == 0) {
         $i = 0;
         while ($ligne = $results->fetch()) {
 
-            if ($i == 0) echo "<option  name='ggg' selected=\"selected\"value=\"" . $ligne['ID_OH'] . "\">" . $ligne['Type_OH'] . " --> " . $ligne['Label_OH'] . "</option>";
+            if ($i == 0) echo "<option  name='ggg' selected=\"selected\" value=\"" . $ligne['ID_OH'] . "\">" . $ligne['Type_OH'] . " --> " . $ligne['Label_OH'] . "</option>";
             else echo "<option name='ggg' value=\"" . $ligne['ID_OH'] . "\">" . $ligne['Type_OH'] . " --> " . $ligne['Label_OH'] . "</option>";
 
             $i++;
@@ -242,24 +221,26 @@ if ($ligne2['compte'] == 0) {
         if (isset($_POST['MarkerList'])) {
 
             echo "\n";
+            //permet de récuperer des valeurs données par une liste avec les combinaisons (y,x,ID_OH)
+            //Cette liste est utilisée pour l'implementation des données dans la BDD
             $liste = explode("|||", $_POST['MarkerList']);
             for ($i = 1; $i < sizeof($liste); $i++) {
                 $liste2 = explode("||", $liste[$i]);
                 $results = $db->exec("INSERT INTO MARKER( x, y, ID_OH, Niveaux, Annee) VALUES (" . $liste2[1] . "," . $liste2[0] . ",'" . $liste2[2] . "','" . $niveau . "'," . $annee . ")");
             }
 
-            //$results = $db->exec
+
         }
         if (isset($_POST['MarkerListToDelete'])) {
 
             echo "\n";
-
+            //Meme principe que la liste ci dessus, mais cette fois pour supprimer dans la BDD
             $liste = explode("|||", $_POST['MarkerListToDelete']);
             for ($i = 1; $i < sizeof($liste); $i++) {
                 $liste2 = explode("||", $liste[$i]);
                 $results = $db->exec("DELETE FROM MARKER WHERE (x LIKE (SELECT TRIM(' " . $liste2[1] . "')) AND y LIKE '%" . $liste2[0] . "%'  AND Niveaux ='" . $niveau . "' AND Annee =" . $annee . ")");
             }
-            //$results = $db->exec
+
 
         }
 
@@ -274,12 +255,13 @@ if ($ligne2['compte'] == 0) {
     <input type="hidden" ID="niveau" name="niveau">
     <input type="hidden" ID="MarkerList" name="MarkerList" value="">
     <input type="hidden" ID="MarkerListToDelete" name="MarkerListToDelete" value="">
-    <p>
     <noscript><input type="submit" value="VALIDER" class="button"></noscript>
-    </p>
+
+
 </form>
 
 <script>
+    //script pour la Timeline des niveaux
     var niveau2 = '<?php echo $niveau ?>';
 
     $(function () {
@@ -302,15 +284,14 @@ if ($ligne2['compte'] == 0) {
         $("#niveau").val($("#dates").find('a.' + "selected").text());
 
 
-        if (niveau2 != $("#niveau").val()) $("#ID_Formulaire").submit();
+        if (niveau2 !== $("#niveau").val()) $("#ID_Formulaire").submit();
 
 
     });
 </script>
 <script>
 
-
-    //THOMAS LE SORCIER
+    //script pour la Timeline des années
     $("#annee").val(<?php echo $annee ?>);
 
     $(function () {
@@ -325,8 +306,7 @@ if ($ligne2['compte'] == 0) {
                 ind = t.index(),
 
                 matchedPara = paras.eq(ind);
-            //  console.log(inputs.data("year"));
-            console.log(t.data("year"));
+
             $("#annee").val(t.data("year"));
             t.add(matchedPara).addClass("active");
             inputs.not(t).add(paras.not(matchedPara)).removeClass("active");
@@ -337,10 +317,8 @@ if ($ligne2['compte'] == 0) {
     });
 
 </script>
-
-
 <script>
-
+    //Script pour la gestion de la carte avec Leaflet, et l'implémentation des markers
     var versailleIcon = L.icon({
         iconUrl: '../../images/marker.png',
         iconAnchor: [19, 50],
@@ -383,7 +361,7 @@ if ($ligne2['compte'] == 0) {
         echo $nom . ".on('dblclick', function () {
                   var monTableauTempToDelete = [" . $nom . ".getLatLng().toString().slice(7, -1).split(',')[0]," . $nom . ".getLatLng().toString().slice(7, -1).split(',')[1]];
         
-                    console.log(monTableauTempToDelete);
+                   
                     
                         
                         monTableauToDelete.push(monTableauTempToDelete);
@@ -440,14 +418,14 @@ if ($ligne2['compte'] == 0) {
 
 
             var validate = 0;
-            console.log(monTableauTempToDelete);
+
 
             for ($i = 0; $i < monTableau.length; $i++) {
 
 
                 if (monTableau[$i][0] === monTableauTempToDelete[0] && monTableau[$i][1] === monTableauTempToDelete[1]) {
 
-                    var supp = monTableau.splice($i, 1);
+                    monTableau.splice($i, 1);
                     validate = 1;
                     marker.remove(this);
                 }
@@ -459,7 +437,7 @@ if ($ligne2['compte'] == 0) {
         marker.on('click', function () {
 
 
-            if (booleanMarker == 1 && markerAssocie == $('#OH').val()) {
+            if (booleanMarker === 1 && markerAssocie === $('#OH').val()) {
 
                 $('#PopupMarker').hide();
                 booleanMarker = 0;
@@ -484,9 +462,6 @@ if ($ligne2['compte'] == 0) {
 
         marker.addTo(map);
         monTableau.push(monTableauTemp);
-
-
-        console.log(monTableau)
 
 
     });
@@ -514,6 +489,7 @@ if ($ligne2['compte'] == 0) {
     );
 </script>
 <script>
+    //Script pour une gestion améliorée de la recherche des Objets Historiques (notemment l'auto implémentation)
     JQ1121(function () {
         JQ1121.widget("custom.combobox", {
             _create: function () {

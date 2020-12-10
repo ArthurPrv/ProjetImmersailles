@@ -8,12 +8,20 @@ if (!isset($_SESSION['Profil'])) {
 
 
 ?>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<head xmlns="">
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:ital,wght@0,300;1,500' rel='stylesheet' type='text/css'>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../../css/timeline/timeline.css">
+    <link rel="stylesheet" href="../../css/timeline/timeline_2.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Gestion Cartes</title>
+    <link rel="icon" type="image/png" href="../../images/autre/logo_mini.png"/>
 </head>
 <?php
 include("header.php");
@@ -29,23 +37,28 @@ include("header.php");
 
             <form method="post" action="mapManagerRecieve.php">
                 <div class="text-center">
-                    <input class="bg-transparent border-3" name="year" placeholder="Année" id="year" type="number">
-                    <input class="bg-transparent border-3" placeholder="Niveaux (3 caractères max)" name="lvl" id="lvl">
-                    <select class="bg-transparent border-3" name="plan" class="">
-                        <option disabled="disabled" selected="selected" value="../images/Carte.png">Carte</option>
-                        <option value="del">Supprimer</option>
+                    <label for="year"></label>
+                    <input required class="bg-transparent border-3" name="year" placeholder="Année" id="year"
+                           type="number">
+                    <label for="lvl"></label><input required class="bg-transparent border-3"
+                                                    placeholder="Niveaux (3 caractères max)" name="lvl" id="lvl">
+                    <label>
+                        <select required class="bg-transparent border-3" name="plan" class="">
+                            <option disabled="disabled" selected="selected" value="../images/Carte.png">Carte</option>
+                            <option value="del">Supprimer</option>
 
-                        <?php //Choisir une carte dans le fichier ../images/plans/nomdel'imge
-                        $dir = opendir("../../images/plans") or die('Erreur de listage : le répertoire n\'existe pas');
-                        while ($element = readdir($dir)) {
-                            if ($element != ".." && $element != ".") {
-                                echo("<option value='../images/plans/" . $element . "'>" . $element . "</option>");
+                            <?php //Choisir une carte dans le fichier ../images/plans/nomdel'imge
+                            $dir = opendir("../../images/plans") or die('Erreur de listage : le répertoire n\'existe pas');
+                            while ($element = readdir($dir)) {
+                                if ($element != ".." && $element != ".") {
+                                    echo("<option value='../images/plans/" . $element . "'>" . $element . "</option>");
+                                }
                             }
-                        }
-                        ?>
-                    </select>
+                            ?>
+                        </select>
+                    </label>
                     <br>
-                    <img id="headImg" style="max-width: 400px; max-height: 400px; margin-top: 3%">
+                    <img id="headImg" style="max-width: 400px; max-height: 400px; margin-top: 3%" alt="" src="">
                 </div>
                 <br/>
                 <button class="" style="background-color: #1e7e34; margin: 0 46% 0 46% " type="submit">Ajouter</button>
@@ -56,40 +69,32 @@ include("header.php");
         </div>
 
     </div>
-
-    <script>
-        window.onload = function () {
-            $("select")
-                .change(function () {
-                    //$("#imgContainer").attr("src",$( "select option:selected" ).val());
-                    //$("#headImg").html('<img id="image" src="$( "select option:selected" ).val()">');
-                    // $("#image").attr("src",$( "select option:selected" ).val());
-                    //$("#headImg").css("background", ' grey center /cover no-repeat url(../' + $("select option:selected").val() + ')');
-                    //$("#headImg").css("background-size", "contain");
-                    if ($("select option:selected").val() !== "del") {
-                        $("#headImg").attr("src", "../" + $("select option:selected").val());
-
-                    }
-                    //var image = document.getElementById("headImage");
-                    //var str = '<img id="image" src="$( "select option:selected" ).val()">';
-
-
-                })
-                .change();
-
-            //'url('+$( "select option:selected" ).val()+ ')'
-        };
-    </script>
-
-    <script src="../../js/select2.min.js"></script>
-    <script src="../../js/minJquery.js"></script>
-    <script src="../../js/global.js"
-    </form>
-    <script async src="../../js/googleTagManager.js"></script>
-    </form>
 </div>
-</div>
-</div>
+
+
+<script>
+    window.onload = function () {
+        $("select")
+            .change(function () {
+
+                if ($("select option:selected").val() !== "del") {
+                    $("#headImg").attr("src", "../" + $("select option:selected").val());
+
+                }
+
+
+            })
+            .change();
+
+
+    };
+</script>
+
+<script src="../../js/select2.min.js"></script>
+<script src="../../js/minJquery.js"></script>
+<script src="../../js/global.js"></script>
+
+<script async src="../../js/googleTagManager.js"></script>
 
 
 <div class="fixed-bottom">
@@ -97,4 +102,6 @@ include("header.php");
 
     include '../footer.php';
     ?></div>
+
+
 </body>

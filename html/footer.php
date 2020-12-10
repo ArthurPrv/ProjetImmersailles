@@ -2,10 +2,10 @@
 
 <style>
     #footer {
-        border-left-width: 0px !important;
-        border-bottom-width: 0px !important;
+        border-left-width: 0 !important;
+        border-bottom-width: 0 !important;
         border-top-width: 1px !important;
-        border-right-width: 0px !important;
+        border-right-width: 0 !important;
 
     }
 </style>
@@ -37,7 +37,7 @@
 
                 <ul class="list-unstyled text-light">
                     <li>
-                        <a href="#!">Link 1</a>
+                        <a href="#">Link 1</a>
                     </li>
 
 
@@ -56,7 +56,7 @@
 
                 <ul class="list-unstyled text-light">
                     <li>
-                        <a href="#!">Link 1</a>
+                        <a href="#">Link 1</a>
                     </li>
 
 
@@ -75,7 +75,7 @@
 
                 <ul class="list-unstyled text-light">
                     <li>
-                        <a href="#!">Link 1</a>
+                        <a href="#">Link 1</a>
                     </li>
 
 
@@ -93,7 +93,7 @@
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="https://www.linkedin.com/in/arthur-prevost-3241441a5/" target="_blank">PREVOST Arthur</a> &&
+        <a href="https://www.linkedin.com/in/arthur-prevost-3241441a5/" target="_blank">PREVOST Arthur</a> ||
         <a href="https://www.linkedin.com/in/thomas-vexiau-7252b41a6" target="_blank">VEXIAU Thomas</a>
     </div>
     <!-- Copyright -->

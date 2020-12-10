@@ -19,10 +19,11 @@
 <?php
 
 include("connexion_bdd.php");
+//REQUETE POUR RECUPERER LA PLUS PETITE DATE DE LA BDD
 $results3 = $db->query("SELECT MIN(Annee) miniAnnee FROM Carte_Nvx;")->fetch();
 
-
-$annee = isset($_POST['annee']) ? $_POST['annee'] : $results3['miniAnnee']; //REQUETE AVEC PETITE
+//Initialisation des valeurs année et niveau
+$annee = isset($_POST['annee']) ? $_POST['annee'] : $results3['miniAnnee'];
 $niveau = isset($_POST['niveau']) ? $_POST['niveau'] : 1;
 
 $results2 = $db->query("SELECT COUNT(*) compte FROM Carte_Nvx WHERE Annee = '" . $annee . "' AND Niveaux = '" . $niveau . "';");
@@ -53,9 +54,22 @@ if ($ligne2['compte'] == 0) {
         height: 60% !important;
     }
 
+    #croix {
+        cursor: pointer
+    }
 
-</style>
-<style> #OH ul {
+    #PopupMarker {
+        display: none;
+        height: 82%;
+        min-width: 370px;
+        background-color: #171a1d;
+        border-left-width: 5px !important;
+        border-bottom-width: 5px !important;
+        border-top-width: 1px !important;
+        border-right-width: 0 !important;
+    }
+
+    #OH ul {
         left: 0 !important;
         right: 0 !important;
         max-height: 20%;
@@ -68,6 +82,7 @@ if ($ligne2['compte'] == 0) {
 
 <div class=" d-inline-flex bottom-0 d-inline-block pl-3  " id="marginTop" style="">
 
+    <!-- Timeline des niveaux-->
     <div id="timeline" class="input-flex-container  d-inline-block mt-3">
         <ul id="dates">
             <?php
@@ -94,6 +109,7 @@ if ($ligne2['compte'] == 0) {
 
     </div>
 
+
     <div class="flex-parent d-inline-block  pb-3 mt-3">
 
         <?php
@@ -103,12 +119,14 @@ if ($ligne2['compte'] == 0) {
         }
         $results->closeCursor();
         ?>
-
+        <!-- Division centrale avec la carte interactive (Leaflet) -->
         <div id="map"></div>
 
 
     </div>
 
+
+    <!-- Division d'affichage des données Wikidata -->
     <div id="PopupMarker" class="ml-auto col-2 h-auto  ">
         <div id="croix" class="text-right mb-2"></div>
 
@@ -118,24 +136,6 @@ if ($ligne2['compte'] == 0) {
 
     </div>
 
-    <style>
-
-        #croix {
-            cursor: pointer
-        }
-
-        #PopupMarker {
-            display: none;
-            height: 82%;
-            min-width: 370px;
-            background-color: #171a1d;
-            border-left-width: 5px !important;
-            border-bottom-width: 5px !important;
-            border-top-width: 1px !important;
-            border-right-width: 0px !important;
-        }
-    </style>
-
 
 </div>
 
@@ -143,11 +143,16 @@ if ($ligne2['compte'] == 0) {
 <form id="ID_Formulaire" action="" method="post">
     <input type="hidden" ID="annee" name="annee">
     <input type="hidden" ID="niveau" name="niveau">
-    <p>
+
     <noscript><input type="submit" value="VALIDER" class="button"></noscript>
-    </p>
+
 </form>
+
+
+<!-- Timeline des années-->
 <div class="input-flex-container mb-auto">
+
+
     <?php
 
 
@@ -166,6 +171,8 @@ if ($ligne2['compte'] == 0) {
     ?>
 </div>
 
+
+<!-- Script pour la Timeline des niveaux -->
 <script>
     var niveau2 = '<?php echo $niveau ?>';
 
@@ -190,11 +197,14 @@ if ($ligne2['compte'] == 0) {
         $("#niveau").val($("#dates").find('a.' + "selected").text());
 
 
-        if (niveau2 != $("#niveau").val()) $("#ID_Formulaire").submit();
+        if (niveau2 !== $("#niveau").val()) $("#ID_Formulaire").submit();
 
 
     });
 </script>
+
+
+<!-- Script pour la Timeline des dates -->
 <script>
 
 
@@ -224,7 +234,9 @@ if ($ligne2['compte'] == 0) {
 
 </script>
 
+
 <link rel='stylesheet' href='../css/styles.css'>
+<!-- script pour la carte -->
 <script>
 
 
@@ -263,11 +275,13 @@ if ($ligne2['compte'] == 0) {
 
     var vide = "";
 
+
+    //Récuperation des données Wikidata
     var marker = L.marker(xy(<?php echo $ligne['x'] ?>,<?php echo $ligne['y'] ?>), {icon: versailleIcon})
     marker.on('click', function () {
 
 
-        if (booleanMarker == 1 && markerAssocie == <?php echo "'{$ligne['ID_OH']}'"; ?>) {
+        if (booleanMarker === 1 && markerAssocie === <?php echo "'{$ligne['ID_OH']}'"; ?>) {
 
             $('#PopupMarker').hide();
             booleanMarker = 0;
@@ -277,14 +291,11 @@ if ($ligne2['compte'] == 0) {
 
                 <?php
 
-                //  echo "'{$ligne['ID_OH']}";
+
                 $id = "{$ligne['ID_OH']}";
                 $link = 'https://www.wikidata.org/wiki/Special:EntityData/' . $id . '.json';
                 $objet = json_decode(file_get_contents($link));
                 $objetV2 = $objet->entities->$id->claims;
-
-                //print_r($objet);
-
 
 
                 //_________________Avoir l'image_____________________
@@ -293,22 +304,21 @@ if ($ligne2['compte'] == 0) {
                     $safeFilename = str_replace(" ", "_", $filename);
                     $md5SafeFilename = md5($safeFilename);
                     $filenameForUpload = 'https://upload.wikimedia.org/wikipedia/commons/' . substr($md5SafeFilename, 0, 1) . '/' . substr($md5SafeFilename, 0, 2) . '/' . $safeFilename;
-                    $imageLink = "<br/><div style=\'text-align: center\'><img  height=200px width = auto src=\"" . $filenameForUpload . "\" ></div>";
+                    $imageLink = "<br/><div style=\'text-align: center \'><img  height=200px width = auto src=\"" . $filenameForUpload . "\" ></div>";
                 } else {
-                    $imageLink = "<br/>Aucune image n'existe pour ce marker";
-                    //Donner une image avec une croix
+                    $imageLink = "<br/>Aucune image n\'existe pour ce marker";
+
                 }
-                //echo "<img height=200px width = auto src='".$filenameForUpload."' >";
+
 
 
                 //_________________Avoir le nom_____________________
 
                 if (isset($objetV2->P1559[0]->mainsnak->datavalue->value->text)) {
-                    $nameInOriginalState = "<div style=\' font-size:22px; text-align: center ;font-weight : bold ; color:#E99C16 \' >" . $objetV2->P1559[0]->mainsnak->datavalue->value->text . "</div>";
+                    $nameInOriginalState = "<div style=\' font-size:22px; text-align: center ;font-weight : bold ; color:#E99C16 \' >" . addslashes($objetV2->P1559[0]->mainsnak->datavalue->value->text) . "</div>";
                 } else {
-                    $nameInOriginalState = 'Le nom de cette personne n`est pas défini';
+                    $nameInOriginalState = "Le nom de cette personne n\'est pas défini";
                 }
-                //print_r("\nNom : ".$nameInOriginalState);
 
 
 
@@ -316,7 +326,7 @@ if ($ligne2['compte'] == 0) {
                 if (isset($objetV2->P569[0]->mainsnak->datavalue->value->time)) {
                     $dateOfBirth = (date('d-m-Y ', strtotime($objetV2->P569[0]->mainsnak->datavalue->value->time)));
                 } else {
-                    $dateOfBirth = 'La date de naissance est inconnue';
+                    $dateOfBirth = "La date de naissance est inconnue";
                 }
                 if (isset($objetV2->P19[0]->mainsnak->datavalue->value->id)) {
                     $birthPlaceID = ($objetV2->P19[0]->mainsnak->datavalue->value->id);
@@ -324,12 +334,12 @@ if ($ligne2['compte'] == 0) {
 
                     $linkBirth = 'https://www.wikidata.org/wiki/Special:EntityData/' . $birthPlaceID . '.json';
                     $objetBirth = json_decode(file_get_contents($linkBirth));
-                    $birthPlace = $objetBirth->entities->$birthPlaceID->labels->fr->value;
+                    $birthPlace = addslashes($objetBirth->entities->$birthPlaceID->labels->fr->value);
 
                 } else {
-                    $birthPlace = "L'endroit de naissance est inconnu";
+                    $birthPlace = "L\'endroit de naissance est inconnu";
                 }
-                //print_r("\nLieu de naissance : ".$birthPlace);
+
 
 
 
@@ -338,7 +348,7 @@ if ($ligne2['compte'] == 0) {
                 if (isset($objetV2->P570[0]->mainsnak->datavalue->value->time)) {
                     $dateOfDeath = (date('d-m-Y ', strtotime($objetV2->P570[0]->mainsnak->datavalue->value->time)));
                 } else {
-                    $dateOfDeath = 'La date de décès est inconnue';
+                    $dateOfDeath = "La date de décès est inconnue";
                 }
 
                 if (isset($objetV2->P20[0]->mainsnak->datavalue->value->id)) {
@@ -347,10 +357,10 @@ if ($ligne2['compte'] == 0) {
 
                     $linkdeath = 'https://www.wikidata.org/wiki/Special:EntityData/' . $objetV2->P20[0]->mainsnak->datavalue->value->id . '.json';
                     $objetdeath = json_decode(file_get_contents($linkdeath));
-                    $deathPlace = $objetdeath->entities->$deathPlaceID->labels->fr->value;
-//print_r("\nLieu de décès : ".$deathPlace);
+                    $deathPlace = addslashes($objetdeath->entities->$deathPlaceID->labels->fr->value);
+
                 } else {
-                    $deathPlace = "L'endroit du décès est inconnu";
+                    $deathPlace = "L\'endroit du décès est inconnu";
                 }
 
 
@@ -360,15 +370,15 @@ if ($ligne2['compte'] == 0) {
                     $link3 = $objet->entities->$id->sitelinks->frwiki->url;
                     $lienWikipedia = "<br/><a target=\"_blank\" href=\"" . $link3 . "\">Plus d\'infos</a>";
                 } else {
-                    $lienWikipedia = 'Pas de page Wikipedia associée';
+                    $lienWikipedia = "Pas de page Wikipedia associée";
                 }
-                //print_r("\nNom : ".$nameInOriginalState);
+
 
                 //_________________Avoir la description_____________________
 
                 if (isset($objet->entities->$id->descriptions->fr->value)) {
                     $description = $objet->entities->$id->descriptions->fr->value;
-                    $descriptionText = "<div style=\'text-align: center\' ><i>" . $description . "</i></div>";
+                    $descriptionText = "<div style=\'text-align: center\' ><i>" . addslashes($description) . "</i></div>";
                 } else {
                     $description = 'Pas de description';
                 }
