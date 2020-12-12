@@ -1,0 +1,49 @@
+Index: .idea/inspectionProfiles/Project_Default.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"InspectionProjectProfileManager\">\r\n  <profile version=\"1.0\">\r\n    <option name=\"myName\" value=\"Project Default\" />\r\n    <inspection_tool class=\"DuplicatedCode\" enabled=\"true\" level=\"WEAK WARNING\" enabled_by_default=\"true\">\r\n      <Languages>\r\n        <language minSize=\"145\" name=\"PHP\" />\r\n      </Languages>\r\n    </inspection_tool>\r\n    <inspection_tool class=\"HtmlUnknownTag\" enabled=\"true\" level=\"WARNING\" enabled_by_default=\"true\">\r\n      <option name=\"myValues\">\r\n        <value>\r\n          <list size=\"7\">\r\n            <item index=\"0\" class=\"java.lang.String\" itemvalue=\"nobr\" />\r\n            <item index=\"1\" class=\"java.lang.String\" itemvalue=\"noembed\" />\r\n            <item index=\"2\" class=\"java.lang.String\" itemvalue=\"comment\" />\r\n            <item index=\"3\" class=\"java.lang.String\" itemvalue=\"noscript\" />\r\n            <item index=\"4\" class=\"java.lang.String\" itemvalue=\"embed\" />\r\n            <item index=\"5\" class=\"java.lang.String\" itemvalue=\"script\" />\r\n            <item index=\"6\" class=\"java.lang.String\" itemvalue=\"fit-content\" />\r\n          </list>\r\n        </value>\r\n      </option>\r\n      <option name=\"myCustomValuesEnabled\" value=\"true\" />\r\n    </inspection_tool>\r\n    <inspection_tool class=\"JSJQueryEfficiency\" enabled=\"false\" level=\"WARNING\" enabled_by_default=\"false\" />\r\n    <inspection_tool class=\"PhpUndefinedVariableInspection\" enabled=\"false\" level=\"ERROR\" enabled_by_default=\"false\">\r\n      <option name=\"REPORT_CAN_BE_UNDEFINED\" value=\"false\" />\r\n    </inspection_tool>\r\n    <inspection_tool class=\"SpellCheckingInspection\" enabled=\"false\" level=\"TYPO\" enabled_by_default=\"false\">\r\n      <option name=\"processCode\" value=\"true\" />\r\n      <option name=\"processLiterals\" value=\"true\" />\r\n      <option name=\"processComments\" value=\"true\" />\r\n    </inspection_tool>\r\n    <inspection_tool class=\"SqlNoDataSourceInspection\" enabled=\"false\" level=\"WARNING\" enabled_by_default=\"false\" />\r\n    <inspection_tool class=\"SqlResolveInspection\" enabled=\"false\" level=\"ERROR\" enabled_by_default=\"false\" />\r\n  </profile>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/inspectionProfiles/Project_Default.xml	(revision 33972f73f09e0db3769442a52274c55422e869d8)
++++ .idea/inspectionProfiles/Project_Default.xml	(date 1607785440237)
+@@ -1,37 +1,7 @@
+ <component name="InspectionProjectProfileManager">
+   <profile version="1.0">
+     <option name="myName" value="Project Default" />
+-    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+-      <Languages>
+-        <language minSize="145" name="PHP" />
+-      </Languages>
+-    </inspection_tool>
+-    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+-      <option name="myValues">
+-        <value>
+-          <list size="7">
+-            <item index="0" class="java.lang.String" itemvalue="nobr" />
+-            <item index="1" class="java.lang.String" itemvalue="noembed" />
+-            <item index="2" class="java.lang.String" itemvalue="comment" />
+-            <item index="3" class="java.lang.String" itemvalue="noscript" />
+-            <item index="4" class="java.lang.String" itemvalue="embed" />
+-            <item index="5" class="java.lang.String" itemvalue="script" />
+-            <item index="6" class="java.lang.String" itemvalue="fit-content" />
+-          </list>
+-        </value>
+-      </option>
+-      <option name="myCustomValuesEnabled" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="JSJQueryEfficiency" enabled="false" level="WARNING" enabled_by_default="false" />
+-    <inspection_tool class="PhpUndefinedVariableInspection" enabled="false" level="ERROR" enabled_by_default="false">
+-      <option name="REPORT_CAN_BE_UNDEFINED" value="false" />
+-    </inspection_tool>
+-    <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO" enabled_by_default="false">
+-      <option name="processCode" value="true" />
+-      <option name="processLiterals" value="true" />
+-      <option name="processComments" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="SqlNoDataSourceInspection" enabled="false" level="WARNING" enabled_by_default="false" />
++    <inspection_tool class="SqlErrorHandlingInspection" enabled="false" level="ERROR" enabled_by_default="false" />
+     <inspection_tool class="SqlResolveInspection" enabled="false" level="ERROR" enabled_by_default="false" />
+   </profile>
+ </component>
+\ No newline at end of file
