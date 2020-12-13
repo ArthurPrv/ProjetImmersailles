@@ -73,7 +73,9 @@ if (isset($_SESSION['Profil'])) {
                     <a href="editMarker.php" class="btn text-white bg-dark w-45">Gestion des Markers</a>
                 </div>
 
-
+                <div class="pl-3 pr-3 d-inline-block w-45  bg-dark text-white">
+                    <a href="Gestion_OH.php" class="btn text-white bg-dark">Gestion des Objets Historiques</a>
+                </div>
                 <h2 class="w-45 d-inline-block float-right">
                     <a href="" class="text-white font-weight-lighter">A propos</a>
                     <img src="../../images/autre/logo_mini.png" class="w-auto" alt="">
